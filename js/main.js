@@ -8,8 +8,8 @@
 
   /* ---- Lenis smooth scroll ---- */
   var lenis = null;
-  if (window.Lenis && !reduced0) {
-    lenis = new window.Lenis({ lerp: 0.09, smoothWheel: true });
+  if (window.Lenis && !reduced0 && window.innerWidth > 1024) {
+    lenis = new window.Lenis({ lerp: 0.1, smoothWheel: true });
     (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(0);
   }
 
