@@ -83,6 +83,7 @@
     var stage = document.querySelector(".hero-stage");
     var inner = document.querySelector(".hero__inner");
     var cue = document.querySelector(".hero__scroll");
+    var sp = document.querySelector(".hero__spline");
     if (!stage || !inner || reduced0) return;
     function upd() {
       var range = stage.offsetHeight - window.innerHeight;
@@ -90,6 +91,7 @@
       inner.style.opacity = String(1 - Math.min(1, p * 1.5));
       inner.style.transform = "translateY(" + (-p * 40) + "px)";
       if (cue) cue.style.opacity = String(1 - Math.min(1, p * 4));
+      if (sp) sp.style.transform = "scale(" + (1 + p * 0.9) + ")";   // dive into the engine
     }
     if (lenis) lenis.on("scroll", upd);
     window.addEventListener("scroll", upd, { passive: true });
