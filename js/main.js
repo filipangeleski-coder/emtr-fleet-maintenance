@@ -1,5 +1,5 @@
 /* ==========================================================================
-   EMTR — site interactions
+   EMTR - site interactions
    ========================================================================== */
 (function () {
   "use strict";
@@ -184,7 +184,7 @@
       new FormData(form).forEach(function (v, k) { data[k] = v; });
 
       function mailtoFallback(note) {
-        var subject = "Website enquiry — " + (data.urgency || "") + " — " + (data.name || "");
+        var subject = "Website enquiry - " + (data.urgency || "") + " - " + (data.name || "");
         var body =
           "Name: " + (data.name || "") + "\n" +
           "Phone: " + (data.phone || "") + "\n" +

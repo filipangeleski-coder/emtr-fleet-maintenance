@@ -1,5 +1,5 @@
 /* ==========================================================================
-   EMTR — cinematic 3D engine hero (three.js)
+   EMTR - cinematic 3D engine hero (three.js)
    Loads a real detailed engine model, renders it with HDRI reflections +
    bloom, plays an exploded-view assembly reveal on load, and bursts apart +
    revs when a "Call" CTA is hovered. Degrades to a procedural engine, then
@@ -39,6 +39,14 @@ function boot() {
   const camera = new THREE.PerspectiveCamera(38, W / H, 0.1, 100);
   camera.position.set(4.2, 1.6, 8.4);
   camera.lookAt(0, 0, 0);
+
+  // cinematic camera path: fly in on load, dive INTO the engine on scroll
+  const ENG = new THREE.Vector3(1.6, 0, 0), LOOK0 = new THREE.Vector3(0, 0, 0);
+  const camHero = new THREE.Vector3(4.2, 1.6, 8.4);
+  const camDive = new THREE.Vector3(2.3, 0.35, 2.3);
+  const camStart = new THREE.Vector3(7.0, 4.2, 17.0);
+  const _cn = new THREE.Vector3(), _cf = new THREE.Vector3(), _lk = new THREE.Vector3();
+  let introCam = 0;
 
   // HDRI-style reflections (no external file)
   const pmrem = new THREE.PMREMGenerator(renderer);
@@ -151,16 +159,24 @@ function boot() {
         const m = meshes[i];
         m.position.copy(m.userData.base).addScaledVector(m.userData.dir, explodeAmt * spread);
       }
-      const spin = reduced ? 0 : (0.22 + hoverBoost * 1.8);
+      const spin = reduced ? 0 : (0.05 + hoverBoost * 1.4);
       rotY += dt * spin;
       rotX += (mouseY * 0.16 - rotX) * 0.05;
       const sway = reduced ? 0 : Math.sin(clock.elapsedTime * 0.15) * 0.1;
-      pivot.rotation.y = rotY + sway + mouseX * 0.35 + scrollP * 1.4;
+      pivot.rotation.y = rotY + sway + mouseX * 0.3 + scrollP * 0.6;
       pivot.rotation.x = rotX + scrollP * 0.25;
-      bloom.strength = 0.4 + hoverBoost * 0.5;
+      bloom.strength = 0.4 + hoverBoost * 0.5 + scrollP * 0.3;
       glow.intensity = 9 + hoverBoost * 10;
-      camera.position.z = 8.4 - hoverBoost * 0.7;
-      camera.lookAt(0, 0, 0);
+
+      // fly-in on load, then dive into the engine as the hero scrolls away
+      introCam = Math.min(1, introCam + dt / 2.2);
+      const ein = reduced ? 1 : easeOutCubic(introCam);
+      _cn.lerpVectors(camHero, camDive, scrollP);   // scroll = dive in
+      _cf.lerpVectors(camStart, _cn, ein);          // load = fly in from far
+      _cf.z -= hoverBoost * 0.7;
+      camera.position.copy(_cf);
+      _lk.lerpVectors(LOOK0, ENG, scrollP);
+      camera.lookAt(_lk);
     }
 
     composer.render();

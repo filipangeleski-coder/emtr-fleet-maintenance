@@ -1,5 +1,5 @@
 /* ==========================================================================
-   EMTR Fleet Maintenance & Repairs — design system
+   EMTR Fleet Maintenance & Repairs - design system
    Dark industrial. Blue/steel from the logo. OKLCH tokens. No #000/#fff.
    ========================================================================== */
 
@@ -426,7 +426,7 @@ h1, h2, h3, h4 {
 }
 
 /* ---------- responsive ---------- */
-@media (max-width: 960px) {
+@media (max-width: 1080px) {
   .nav__links, .nav__phone, .nav__cta .btn--primary { display: none; }
   .nav__toggle { display: flex; }
   body { padding-bottom: 66px; }
