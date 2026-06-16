@@ -98,6 +98,35 @@
     upd();
   })();
 
+  /* ---- spline engine: fade in after its intro (hides the scene's load-in text) ---- */
+  (function () {
+    var sp = document.querySelector(".hero__spline");
+    if (!sp) return;
+    var done = false;
+    function reveal() { if (done) return; done = true; sp.classList.add("ready"); }
+    sp.addEventListener("load", function () { setTimeout(reveal, 1700); });
+    setTimeout(reveal, 4000); // fallback if the load event never fires
+  })();
+
+  /* ---- real coverage map (Leaflet, dark CARTO tiles) ---- */
+  (function () {
+    var el = document.getElementById("emtr-map");
+    if (!el || !window.L) return;
+    var center = [-33.85, 150.90]; // Western Sydney
+    var map = window.L.map(el, {
+      center: center, zoom: 9,
+      scrollWheelZoom: false, dragging: false, touchZoom: false,
+      doubleClickZoom: false, boxZoom: false, keyboard: false,
+      zoomControl: false, attributionControl: true
+    });
+    window.L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+      maxZoom: 19, attribution: "&copy; OpenStreetMap, &copy; CARTO"
+    }).addTo(map);
+    window.L.circle(center, { radius: 60000, color: "#3a8bff", weight: 1.5, opacity: 0.85, fillColor: "#2f7dff", fillOpacity: 0.12 }).addTo(map);
+    window.L.circleMarker(center, { radius: 7, color: "#bcd6ff", weight: 2, fillColor: "#2f7dff", fillOpacity: 1 }).addTo(map);
+    setTimeout(function () { map.invalidateSize(); }, 350);
+  })();
+
   /* ---- scroll progress bar ---- */
   (function () {
     var sb = document.getElementById("scrollbar");

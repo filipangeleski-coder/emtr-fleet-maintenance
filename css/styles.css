@@ -158,7 +158,10 @@ h1, h2, h3, h4 {
 }
 .hero__canvas { position: absolute; inset: 0; z-index: 1; opacity: 0; transition: opacity 1.2s ease; }
 .hero__canvas.ready { opacity: 1; }
-.hero__spline { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; pointer-events: none; will-change: transform; }
+.hero__spline { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; pointer-events: none; will-change: transform; opacity: 0; transition: opacity 1.1s ease; }
+.hero__spline.ready { opacity: 1; }
+/* mobile: widen the viewer so the full engine renders (crop empty top/bottom, not the engine) */
+@media (max-width: 700px) { .hero__spline { left: -70%; right: auto; width: 240%; } }
 .hero__grid {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background-image:
@@ -381,7 +384,10 @@ h1, h2, h3, h4 {
 @keyframes ripple { 0% { opacity: 0.7; transform: scale(0.4); } 100% { opacity: 0; transform: scale(7); } }
 .coverage-map__pin { position: absolute; top: 45%; left: 50%; transform: translate(-50%, -100%); color: var(--blue-bright); filter: drop-shadow(0 6px 10px oklch(0.1 0.04 256 / 0.6)); animation: bob 3s var(--ease) infinite; }
 @keyframes bob { 0%,100% { transform: translate(-50%, -100%); } 50% { transform: translate(-50%, -118%); } }
-.coverage-map__label { position: absolute; left: 1.4rem; bottom: 1.4rem; font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+.coverage-map__leaflet { position: absolute; inset: 0; z-index: 0; background: var(--ink-2); }
+.coverage-map .leaflet-control-attribution { background: oklch(0.17 0.022 252 / 0.72) !important; color: var(--faint) !important; font-size: 10px; }
+.coverage-map .leaflet-control-attribution a { color: var(--steel) !important; }
+.coverage-map__label { position: absolute; left: 1.4rem; bottom: 1.4rem; font-size: 0.85rem; color: var(--muted); line-height: 1.5; z-index: 600; pointer-events: none; text-shadow: 0 1px 10px oklch(0.12 0.03 256 / 0.95); }
 .coverage-map__label strong { color: var(--paper); font-family: var(--font-display); }
 @media (prefers-reduced-motion: reduce) { .coverage-map__rings span, .coverage-map__pin { animation: none; } .coverage-map__rings span:first-child { opacity: 0.5; transform: scale(4); } }
 

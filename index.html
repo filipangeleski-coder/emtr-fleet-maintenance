@@ -24,7 +24,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <script>document.documentElement.classList.add('js');</script>
-<link rel="stylesheet" href="css/styles.css?v=9">
+<link rel="stylesheet" href="css/styles.css?v=11">
 
 <!-- LocalBusiness / AutoRepair structured data. No aggregateRating until real reviews exist. -->
 <script type="application/ld+json">
@@ -71,6 +71,9 @@
 
 <!-- Spline 3D engine viewer -->
 <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.97/build/spline-viewer.js"></script>
+<!-- Leaflet (real coverage map) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 
 <body>
@@ -205,11 +208,8 @@
       <a href="#contact" class="btn btn--primary" style="margin-top:1.8rem">Check we cover you <span class="arrow">&rarr;</span></a>
     </div>
     <div class="reveal" data-d="2">
-      <div class="coverage-map" aria-hidden="true">
-        <div class="coverage-map__rings"><span></span><span></span><span></span></div>
-        <div class="coverage-map__pin">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
-        </div>
+      <div class="coverage-map">
+        <div id="emtr-map" class="coverage-map__leaflet" aria-label="EMTR service area map of Sydney and NSW"></div>
         <div class="coverage-map__label">Based Western Sydney<br><strong>~60 km service radius + regional callouts</strong></div>
       </div>
     </div>
@@ -608,6 +608,6 @@
 </a>
 
 <script defer src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
-<script src="js/main.js?v=7" defer></script>
+<script src="js/main.js?v=9" defer></script>
 </body>
 </html>
