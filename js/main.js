@@ -78,6 +78,24 @@
     });
   }
 
+  /* ---- hero text fades as you dive into the engine ---- */
+  (function () {
+    var stage = document.querySelector(".hero-stage");
+    var inner = document.querySelector(".hero__inner");
+    var cue = document.querySelector(".hero__scroll");
+    if (!stage || !inner || reduced0) return;
+    function upd() {
+      var range = stage.offsetHeight - window.innerHeight;
+      var p = range > 0 ? Math.min(1, Math.max(0, (window.scrollY || 0) / range)) : 0;
+      inner.style.opacity = String(1 - Math.min(1, p * 1.5));
+      inner.style.transform = "translateY(" + (-p * 40) + "px)";
+      if (cue) cue.style.opacity = String(1 - Math.min(1, p * 4));
+    }
+    if (lenis) lenis.on("scroll", upd);
+    window.addEventListener("scroll", upd, { passive: true });
+    upd();
+  })();
+
   /* ---- scroll progress bar ---- */
   (function () {
     var sb = document.getElementById("scrollbar");

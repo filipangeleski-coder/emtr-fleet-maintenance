@@ -47,6 +47,7 @@ function boot() {
   const camStart = new THREE.Vector3(7.0, 4.2, 17.0);
   const _cn = new THREE.Vector3(), _cf = new THREE.Vector3(), _lk = new THREE.Vector3();
   let introCam = 0;
+  const stageEl = canvas.closest(".hero-stage");   // pinned scroll stage drives the dive
 
   // HDRI-style reflections (no external file)
   const pmrem = new THREE.PMREMGenerator(renderer);
@@ -152,7 +153,8 @@ function boot() {
     if (introT < 1) introT = Math.min(1, introT + dt / INTRO_DUR);
 
     if (ready) {
-      const scrollP = reduced ? 0 : Math.min(1, (window.scrollY || 0) / Math.max(1, wrap.clientHeight));
+      const range = stageEl ? (stageEl.offsetHeight - window.innerHeight) : wrap.clientHeight;
+      const scrollP = reduced ? 0 : Math.min(1, Math.max(0, (window.scrollY || 0) / Math.max(1, range)));
       const introExplode = reduced ? 0 : (1 - easeOutCubic(introT)) * 0.8;   // starts exploded, assembles
       const explodeAmt = Math.min(1.0, introExplode + hoverBoost * 0.5 + scrollP * 0.22);
       for (let i = 0; i < meshes.length; i++) {
