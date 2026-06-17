@@ -154,6 +154,8 @@ h1, h2, h3, h4 {
     radial-gradient(90% 80% at 12% 90%, oklch(0.22 0.05 256 / 0.6), transparent 55%),
     linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 60%, var(--ink) 100%);
 }
+.hero__bg::before { content: ""; position: absolute; inset: 0; background: url("../assets/photos/onsite_a_service.jpg") center/cover no-repeat; filter: grayscale(1) contrast(1.05) brightness(0.5); opacity: 0.14; }
+.hero__bg::after { content: ""; position: absolute; inset: 0; background: url("../assets/photos/keep_moving.jpg") right center/40% no-repeat; filter: grayscale(1) brightness(0.45); opacity: 0.1; mix-blend-mode: luminosity; }
 .hero__canvas { position: absolute; inset: 0; z-index: 1; opacity: 0; transition: opacity 1.2s ease; }
 .hero__canvas.ready { opacity: 1; }
 .hero__spline { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; pointer-events: none; opacity: 0; transition: opacity 1.1s ease; }

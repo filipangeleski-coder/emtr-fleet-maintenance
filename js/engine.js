@@ -49,12 +49,12 @@ function boot() {
   loader.setDRACOLoader(draco);
   loader.load("assets/models/engine_spline.glb?v=2", (g) => {
     model = g.scene;
-    model.traverse((o) => {
-      if (o.isMesh && o.material) {
-        const mats = Array.isArray(o.material) ? o.material : [o.material];
-        mats.forEach((m) => { if ("envMapIntensity" in m) m.envMapIntensity = 1.8; });
-      }
-    });
+    // the free Spline export ships no materials (flat grey); paint on machined steel + brand-blue accents
+    const STEEL = new THREE.MeshStandardMaterial({ color: 0x9aa3ae, metalness: 1.0, roughness: 0.33, envMapIntensity: 1.7 });
+    const DARK = new THREE.MeshStandardMaterial({ color: 0x394150, metalness: 1.0, roughness: 0.5, envMapIntensity: 1.2 });
+    const ACCENT = new THREE.MeshStandardMaterial({ color: 0x1f2a44, metalness: 0.7, roughness: 0.4, emissive: 0x2f7dff, emissiveIntensity: 0.9 });
+    let mi = 0;
+    model.traverse((o) => { if (o.isMesh) { o.material = (mi % 7 === 0) ? ACCENT : (mi % 3 === 0 ? DARK : STEEL); mi++; } });
     scene.add(model);
     const box = new THREE.Box3().setFromObject(model);
     box.getCenter(center);
