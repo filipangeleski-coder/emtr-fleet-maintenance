@@ -5,6 +5,7 @@
   "use strict";
 
   var reduced0 = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function requestIdle(fn) { (window.requestIdleCallback || function (f) { return setTimeout(f, 1); })(fn); }
 
   /* ---- Lenis smooth scroll ---- */
   var lenis = null;
@@ -13,28 +14,33 @@
     (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(0);
   }
 
-  /* ---- cinematic preloader ---- */
+  /* ---- preloader: dismiss on real load (short cap), not fake progress ---- */
   (function () {
     var pre = document.getElementById("preloader");
-    if (!pre) return;
-    if (reduced0) { pre.remove(); return; }
+    function signalLoaded() { window.dispatchEvent(new CustomEvent("emtr:preloaded")); }
+    if (!pre) { signalLoaded(); return; }
+    if (reduced0) { pre.remove(); signalLoaded(); return; }
     var bar = pre.querySelector(".preloader__bar i");
     var pct = pre.querySelector(".preloader__pct");
     if (lenis) lenis.stop();
     var n = 0, done = false;
     function finish() {
       if (done) return; done = true;
+      bar.style.width = "100%"; pct.textContent = "100%";
       pre.classList.add("done");
       if (lenis) lenis.start();
-      setTimeout(function () { if (pre.parentNode) pre.parentNode.removeChild(pre); }, 1100);
+      signalLoaded();
+      setTimeout(function () { if (pre.parentNode) pre.parentNode.removeChild(pre); }, 900);
     }
+    // bar tracks toward real readiness; completion is the window 'load' event or a short cap, never a fake timer
     var iv = setInterval(function () {
-      n = Math.min(100, n + Math.random() * 9 + 4);
-      bar.style.width = n + "%";
-      pct.textContent = Math.round(n) + "%";
-      if (n >= 100) { clearInterval(iv); setTimeout(finish, 350); }
-    }, 75);
-    setTimeout(finish, 4500); // failsafe
+      n = Math.min(96, n + Math.random() * 14 + 6);
+      bar.style.width = n + "%"; pct.textContent = Math.round(n) + "%";
+    }, 60);
+    function ready() { clearInterval(iv); finish(); }
+    if (document.readyState === "complete") { setTimeout(ready, 200); }
+    else { window.addEventListener("load", function () { setTimeout(ready, 150); }); }
+    setTimeout(ready, 1200); // hard cap: never gate the hero longer than this
   })();
 
   /* ---- smooth anchor links ---- */
@@ -65,8 +71,8 @@
 
   /* ---- 3D tilt-toward-cursor on cards ---- */
   if (!reduced0 && window.matchMedia("(hover: hover)").matches) {
-    document.querySelectorAll(".svc, .gallery figure").forEach(function (el) {
-      var max = el.classList.contains("svc--feature") ? 3.5 : 6;
+    document.querySelectorAll(".gallery figure").forEach(function (el) {
+      var max = 6;
       el.addEventListener("pointerenter", function () { el.style.transition = "transform .12s ease-out"; });
       el.addEventListener("pointermove", function (e) {
         var r = el.getBoundingClientRect();
@@ -78,53 +84,100 @@
     });
   }
 
-  /* ---- hero text fades as you dive into the engine ---- */
+  /* ---- HERO: cartographic backdrop + drawn route + fault→cleared beat ---- */
   (function () {
-    var stage = document.querySelector(".hero-stage");
-    var inner = document.querySelector(".hero__inner");
-    var cue = document.querySelector(".hero__scroll");
-    var sp = document.querySelector(".hero__spline");
-    if (!stage || !inner || reduced0) return;
-    function upd() {
-      var range = stage.offsetHeight - window.innerHeight;
-      var p = range > 0 ? Math.min(1, Math.max(0, (window.scrollY || 0) / range)) : 0;
-      inner.style.opacity = String(1 - Math.min(1, p * 1.5));
-      inner.style.transform = "translateY(" + (-p * 40) + "px)";
-      if (cue) cue.style.opacity = String(1 - Math.min(1, p * 4));
-      if (sp) sp.style.transform = "scale(" + (1 + p * 0.9) + ")";   // dive into the engine
+    var hero = document.querySelector(".hero");
+    if (!hero) return;
+    var line = hero.querySelector(".route__line");
+    var diag = document.getElementById("diagLine");
+
+    // On phones the SVG slice-crops the sides; swap to a portrait-friendly near-vertical
+    // route so the base AND the breakdown pin both stay in frame (the money-shot survives).
+    (function applyMobileRoute() {
+      var svg = hero.querySelector(".hero__route");
+      if (!svg || window.innerWidth >= 768) return;
+      svg.setAttribute("viewBox", "0 0 480 760");
+      var radius = svg.querySelector(".route__radius");
+      if (radius) { radius.setAttribute("cx", "240"); radius.setAttribute("cy", "636"); radius.setAttribute("r", "150"); }
+      if (line) line.setAttribute("d", "M240,636 C 304,556 192,452 268,372 S 222,210 250,118");
+      var base = svg.querySelector(".route__base");
+      if (base) base.setAttribute("transform", "translate(240,636)");
+      var pin = svg.querySelector(".route__pin");
+      if (pin) pin.setAttribute("transform", "translate(250,112)");
+      var eta = svg.querySelector(".route__eta");
+      if (eta) { eta.setAttribute("x", "240"); eta.setAttribute("y", "158"); eta.setAttribute("text-anchor", "middle"); }
+    })();
+
+    // live Leaflet backdrop on desktop only; the SVG route carries the concept everywhere else.
+    if (window.L && !reduced0 && window.innerWidth >= 768) {
+      requestIdle(function () {
+        var el = document.getElementById("heroMap");
+        if (!el) return;
+        try {
+          var m = window.L.map(el, {
+            center: [-33.74, 151.0], zoom: 10, zoomControl: false, attributionControl: true,
+            dragging: false, scrollWheelZoom: false, touchZoom: false, doubleClickZoom: false, boxZoom: false, keyboard: false
+          });
+          window.L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+            maxZoom: 19, attribution: "&copy; OpenStreetMap, &copy; CARTO"
+          }).addTo(m);
+          setTimeout(function () { m.invalidateSize(); }, 200);
+          el.classList.add("ready");
+        } catch (e) { /* tiles failed: scrim + route still carry the hero */ }
+      });
     }
-    if (lenis) lenis.on("scroll", upd);
-    window.addEventListener("scroll", upd, { passive: true });
-    upd();
+
+    function flip() {
+      if (!diag) return;
+      var cleared = diag.getAttribute("data-cleared");
+      setTimeout(function () { diag.textContent = cleared; diag.classList.add("cleared"); }, reduced0 ? 0 : 250);
+    }
+    function draw() {
+      hero.classList.add("in-view");
+      var len = 0;
+      if (line) { try { len = line.getTotalLength(); } catch (e) { len = 0; } }
+      if (reduced0 || !line || !len) {
+        if (line && len) { line.style.strokeDasharray = len; line.style.strokeDashoffset = 0; }
+        hero.classList.add("routed"); flip(); return;
+      }
+      line.style.strokeDasharray = len;
+      line.style.strokeDashoffset = len;
+      line.getBoundingClientRect(); // force reflow
+      line.style.transition = "stroke-dashoffset 1.5s cubic-bezier(0.16,1,0.3,1)";
+      requestAnimationFrame(function () { line.style.strokeDashoffset = 0; });
+      setTimeout(function () { hero.classList.add("routed"); flip(); }, 1550);
+    }
+    // gate behind first paint so the headline + CALL button are never blocked
+    if (reduced0) { draw(); } else { setTimeout(draw, 900); }
   })();
 
-  /* ---- spline engine: fade in after its intro (hides the scene's load-in text) ---- */
-  (function () {
-    var sp = document.querySelector(".hero__spline");
-    if (!sp) return;
-    var done = false;
-    function reveal() { if (done) return; done = true; sp.classList.add("ready"); }
-    sp.addEventListener("load", function () { setTimeout(reveal, 1700); });
-    setTimeout(reveal, 4000); // fallback if the load event never fires
-  })();
-
-  /* ---- real coverage map (Leaflet, dark CARTO tiles) ---- */
+  /* ---- coverage map (Leaflet) — lazy-init when it scrolls into view ---- */
   (function () {
     var el = document.getElementById("emtr-map");
     if (!el || !window.L) return;
-    var center = [-33.85, 150.90]; // Western Sydney
-    var map = window.L.map(el, {
-      center: center, zoom: 9,
-      scrollWheelZoom: false, dragging: false, touchZoom: false,
-      doubleClickZoom: false, boxZoom: false, keyboard: false,
-      zoomControl: false, attributionControl: true
-    });
-    window.L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-      maxZoom: 19, attribution: "&copy; OpenStreetMap, &copy; CARTO"
-    }).addTo(map);
-    window.L.circle(center, { radius: 60000, color: "#3a8bff", weight: 1.5, opacity: 0.85, fillColor: "#2f7dff", fillOpacity: 0.12 }).addTo(map);
-    window.L.circleMarker(center, { radius: 7, color: "#bcd6ff", weight: 2, fillColor: "#2f7dff", fillOpacity: 1 }).addTo(map);
-    setTimeout(function () { map.invalidateSize(); }, 350);
+    var built = false;
+    function build() {
+      if (built) return; built = true;
+      var center = [-33.85, 150.90]; // Western Sydney
+      var map = window.L.map(el, {
+        center: center, zoom: 9,
+        scrollWheelZoom: false, dragging: false, touchZoom: false,
+        doubleClickZoom: false, boxZoom: false, keyboard: false,
+        zoomControl: false, attributionControl: true
+      });
+      window.L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+        maxZoom: 19, attribution: "&copy; OpenStreetMap, &copy; CARTO"
+      }).addTo(map);
+      window.L.circle(center, { radius: 60000, color: "#3a8bff", weight: 1.5, opacity: 0.85, fillColor: "#2f7dff", fillOpacity: 0.12 }).addTo(map);
+      window.L.circleMarker(center, { radius: 7, color: "#bcd6ff", weight: 2, fillColor: "#2f7dff", fillOpacity: 1 }).addTo(map);
+      setTimeout(function () { map.invalidateSize(); }, 300);
+    }
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { build(); io.disconnect(); } });
+      }, { rootMargin: "200px" });
+      io.observe(el);
+    } else { build(); }
   })();
 
   /* ---- scroll progress bar ---- */
@@ -143,12 +196,15 @@
     update();
   })();
 
-  /* ---- hero headline clip-wipe (times with the preloader lift) ---- */
+  /* ---- hero headline clip-wipe (fires when the preloader lifts, not a hard delay) ---- */
   (function () {
     var hh = document.querySelector(".hero-h1");
     if (!hh) return;
     if (reduced0) { hh.classList.add("shown"); return; }
-    setTimeout(function () { hh.classList.add("shown"); }, 1500);
+    var shown = false;
+    function show() { if (shown) return; shown = true; hh.classList.add("shown"); }
+    window.addEventListener("emtr:preloaded", function () { setTimeout(show, 120); });
+    setTimeout(show, 1500); // fallback only if the event never fires
   })();
 
   /* ---- year ---- */

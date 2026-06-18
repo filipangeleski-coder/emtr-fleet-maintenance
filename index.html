@@ -18,15 +18,14 @@
 <meta property="og:url" content="https://emtr.com.au/">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- Fonts -->
+<!-- Fonts: Archivo (display) + Inter (body) + JetBrains Mono (instrument/data layer) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://prod.spline.design" crossorigin>
 <link rel="preconnect" href="https://unpkg.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
 <script>document.documentElement.classList.add('js');</script>
-<link rel="stylesheet" href="css/styles.css?v=15">
+<link rel="stylesheet" href="css/styles.css?v=20">
 
 <!-- LocalBusiness / AutoRepair structured data. No aggregateRating until real reviews exist. -->
 <script type="application/ld+json">
@@ -71,14 +70,14 @@
 }
 </script>
 
-<!-- three.js engine hero -->
+<!-- three.js engine (now a fixed-angle diagnostic schematic, demoted from hero) -->
 <script type="importmap">
 { "imports": {
   "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
   "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
 }}
 </script>
-<!-- Leaflet (real coverage map) -->
+<!-- Leaflet (cartographic hero backdrop + real coverage map) -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
@@ -90,8 +89,8 @@
     <img class="preloader__logo" src="assets/emtr-logo-white.png" alt="EMTR">
     <div class="preloader__bar"><i></i></div>
     <div class="preloader__row">
-      <span class="preloader__tag">Mobile diesel &amp; fleet</span>
-      <span class="preloader__pct">0%</span>
+      <span class="preloader__tag mono">MOBILE DIESEL &amp; FLEET // NSW</span>
+      <span class="preloader__pct mono">0%</span>
     </div>
   </div>
 </div>
@@ -107,15 +106,15 @@
       <img src="assets/emtr-logo-white.png" alt="EMTR Fleet Maintenance & Repairs">
     </a>
     <nav class="nav__links" aria-label="Primary">
-      <a href="#services">Services</a>
       <a href="#coverage">Coverage</a>
+      <a href="#services">Services</a>
+      <a href="#diesel">We know diesel</a>
       <a href="#work">Our work</a>
-      <a href="#how">How it works</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
     <div class="nav__cta">
-      <a href="tel:0451073733" class="nav__phone" data-rev>
+      <a href="tel:0451073733" class="nav__phone mono" data-rev>
         <span class="pulse" aria-hidden="true"></span>
         <span class="label">0451 073 733</span>
       </a>
@@ -129,10 +128,10 @@
 
 <!-- mobile drawer -->
 <div class="mobile-nav" id="mobileNav">
-  <a href="#services">Services</a>
   <a href="#coverage">Coverage</a>
+  <a href="#services">Services</a>
+  <a href="#diesel">We know diesel</a>
   <a href="#work">Our work</a>
-  <a href="#how">How it works</a>
   <a href="#about">About</a>
   <a href="#contact">Contact</a>
   <a href="tel:0451073733" class="btn btn--primary btn--lg">Call 0451 073 733</a>
@@ -140,71 +139,88 @@
 
 <main id="top">
 
-<!-- ============ HERO ============ -->
-<section class="hero">
-  <div class="hero__bg"></div>
-  <canvas id="engine-canvas" class="hero__spline" aria-hidden="true"></canvas>
-  <div class="hero__grid" aria-hidden="true"></div>
+<!-- ============ HERO — the callout line ============ -->
+<section class="hero" id="hero">
+  <div class="hero__map" id="heroMap" aria-hidden="true"></div>
+  <div class="hero__scrim" aria-hidden="true"></div>
+
+  <!-- cartographic route overlay: base (lower-left) → breakdown pin (upper-right). Illustration, not a live trace. -->
+  <svg class="hero__route" viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+    <circle class="route__radius" cx="372" cy="468" r="150"></circle>
+    <path class="route__line" d="M372,468 C 472,452 512,398 566,366 S 648,262 662,196"></path>
+    <g class="route__base" transform="translate(372,468)">
+      <circle r="9"></circle><circle class="route__base-ring" r="9"></circle>
+    </g>
+    <g class="route__pin" transform="translate(662,190)">
+      <circle class="route__ping" r="10"></circle>
+      <path class="route__pinmark" d="M0,-22 C 12,-22 20,-13 20,-2 C 20,12 0,24 0,24 C 0,24 -20,12 -20,-2 C -20,-13 -12,-22 0,-22 Z"></path>
+      <circle class="route__pindot" cy="-2" r="6"></circle>
+    </g>
+    <text class="route__eta mono" x="646" y="150" text-anchor="end">ETA // ON THE SPOT</text>
+  </svg>
+
+  <span class="bracket bracket--tl" aria-hidden="true"></span>
+  <span class="bracket bracket--tr" aria-hidden="true"></span>
+  <span class="bracket bracket--bl" aria-hidden="true"></span>
+  <span class="bracket bracket--br" aria-hidden="true"></span>
+
   <div class="wrap hero__inner">
     <div class="hero__content">
-      <span class="eyebrow reveal">Mobile diesel &amp; fleet mechanics · Sydney &amp; NSW</span>
-      <h1 class="hero-h1" data-d="1">We keep your <span class="hl">fleet moving.</span></h1>
-      <p class="hero__sub reveal" data-d="2">We come to you. No towing, no tow bill, no truck off the road for a week. On-site servicing, repairs and 24/7 breakdown across NSW.</p>
-      <div class="hero__actions reveal" data-d="3">
+      <span class="hero__eyebrow mono reveal">BASE WESTERN SYD // 33.85&deg;S 150.90&deg;E // 24/7</span>
+      <h1 class="hero-h1" data-d="1">When it stops,<br><span class="hl">we start rolling.</span></h1>
+      <p class="hero__sub reveal" data-d="2">Fully mobile diesel mechanics across Sydney and greater NSW. We bring the workshop to your depot, site or the roadside. No tow, no truck off the road for a week.</p>
+
+      <div class="hero__diag reveal" data-d="3" aria-hidden="true">
+        <span class="hero__diag-label mono">CALLOUT SEQUENCE // ILLUSTRATION</span>
+        <span class="diag mono" id="diagLine" data-fault="FAULT // UNIT DOWN" data-cleared="CLEARED // BACK EARNING">FAULT // UNIT DOWN</span>
+      </div>
+
+      <div class="hero__actions reveal" data-d="4">
         <a href="tel:0451073733" class="btn btn--primary btn--lg" data-rev>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          Call now, we roll
+          Call now, we roll <span class="btn__num mono">0451 073 733</span>
         </a>
         <a href="#contact" class="btn btn--ghost btn--lg">Request a callout <span class="arrow">&rarr;</span></a>
       </div>
-      <div class="hero__trust reveal" data-d="4">
-        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 24/7 breakdown</span>
-        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Licensed &amp; insured</span>
-        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Fully mobile</span>
-        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> No after-hours charge on scheduled work</span>
-      </div>
+
+      <p class="visually-hidden">Based in Western Sydney, with a service radius of roughly 60 kilometres plus regional callouts across New South Wales. Fully mobile diesel mechanics, available 24/7 for breakdowns. Call 0451 073 733.</p>
     </div>
   </div>
-  <div class="hero__scroll" aria-hidden="true"><span>Scroll</span><span class="bar"></span></div>
+
+  <div class="hero__scrollcue mono" aria-hidden="true"><span>SCROLL</span><span class="bar"></span><span>01 / COVERAGE</span></div>
 </section>
 
 <!-- ============ MARQUEE ============ -->
 <div class="marquee" aria-hidden="true">
   <div class="marquee__track" id="marquee">
-    <span class="marquee__item"><span class="dot"></span> Trucks</span>
-    <span class="marquee__item"><span class="dot"></span> Trailers</span>
-    <span class="marquee__item"><span class="dot"></span> Earthmoving</span>
-    <span class="marquee__item"><span class="dot"></span> Excavators</span>
-    <span class="marquee__item"><span class="dot"></span> Fleets</span>
-    <span class="marquee__item"><span class="dot"></span> Cummins</span>
-    <span class="marquee__item"><span class="dot"></span> CAT</span>
-    <span class="marquee__item"><span class="dot"></span> Detroit</span>
-    <span class="marquee__item"><span class="dot"></span> PACCAR</span>
-    <span class="marquee__item"><span class="dot"></span> Isuzu</span>
-    <span class="marquee__item"><span class="dot"></span> Hino</span>
-    <span class="marquee__item"><span class="dot"></span> Fuso</span>
+    <span class="marquee__item mono"><span class="dot"></span> TRUCKS</span>
+    <span class="marquee__item mono"><span class="dot"></span> TRAILERS</span>
+    <span class="marquee__item mono"><span class="dot"></span> EARTHMOVING</span>
+    <span class="marquee__item mono"><span class="dot"></span> EXCAVATORS</span>
+    <span class="marquee__item mono"><span class="dot"></span> FLEETS</span>
+    <span class="marquee__item mono"><span class="dot"></span> CUMMINS</span>
+    <span class="marquee__item mono"><span class="dot"></span> CAT</span>
+    <span class="marquee__item mono"><span class="dot"></span> DETROIT</span>
+    <span class="marquee__item mono"><span class="dot"></span> PACCAR</span>
+    <span class="marquee__item mono"><span class="dot"></span> ISUZU</span>
+    <span class="marquee__item mono"><span class="dot"></span> HINO</span>
+    <span class="marquee__item mono"><span class="dot"></span> FUSO</span>
   </div>
 </div>
 
-<!-- ============ STAT BAND ============ -->
-<section class="section section--tight">
-  <div class="wrap">
-    <div class="stats">
-      <div class="stat reveal"><div class="stat__num"><span class="num" data-count="24">24</span><span class="u">/</span>7</div><div class="stat__label">Breakdown response, day or night</div></div>
-      <div class="stat reveal" data-d="1"><div class="stat__num"><span class="num" data-count="15">15</span><span class="u">+</span></div><div class="stat__label">Years on the tools</div></div>
-      <div class="stat reveal" data-d="2"><div class="stat__num"><span class="num" data-count="2">2</span><span class="u">nd</span></div><div class="stat__label">Generation diesel mechanics</div></div>
-      <div class="stat reveal" data-d="3"><div class="stat__num"><span class="num" data-count="100">100</span><span class="u">%</span></div><div class="stat__label">Licensed, insured, logged</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ COVERAGE / WE COME TO YOU ============ -->
+<!-- ============ COVERAGE (01) ============ -->
 <section class="section" id="coverage">
   <div class="wrap split">
     <div class="reveal">
-      <span class="eyebrow">We come to you</span>
+      <span class="eyebrow"><span class="idx mono">01</span> We come to you</span>
       <h2>Your yard. Your site. The roadside. Wherever it stops, we start.</h2>
       <p>You do not bring the truck to us. We bring a fully equipped mobile workshop to you, anywhere across Sydney and NSW. Less downtime, no tow truck, your gear back to earning faster.</p>
+      <div class="docket mono" aria-hidden="true">
+        <span class="docket__row"><span class="docket__k">BASE</span><span class="docket__v">WESTERN SYDNEY</span></span>
+        <span class="docket__row"><span class="docket__k">RADIUS</span><span class="docket__v">~60 KM</span></span>
+        <span class="docket__row"><span class="docket__k">PLUS</span><span class="docket__v">REGIONAL NSW CALLOUTS</span></span>
+        <span class="docket__row"><span class="docket__k">HOURS</span><span class="docket__v">24/7 BREAKDOWN</span></span>
+      </div>
       <ul class="checklist">
         <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Sydney metro, Western Sydney and greater NSW</li>
         <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Depots, work sites, quarries and roadside</li>
@@ -213,111 +229,113 @@
       <a href="#contact" class="btn btn--primary" style="margin-top:1.8rem">Check we cover you <span class="arrow">&rarr;</span></a>
     </div>
     <div class="reveal" data-d="2">
-      <div class="coverage-map">
+      <div class="coverage-map bracket-frame">
         <div id="emtr-map" class="coverage-map__leaflet" aria-label="EMTR service area map of Sydney and NSW"></div>
-        <div class="coverage-map__label">Based Western Sydney<br><strong>~60 km service radius + regional callouts</strong></div>
+        <div class="coverage-map__label mono">BASE // WESTERN SYDNEY<br><strong>~60 KM RADIUS + REGIONAL CALLOUTS</strong></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ SERVICES ============ -->
+<!-- ============ SERVICES (02) — capability manifest ============ -->
 <section class="section" id="services">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow">What we do</span>
+      <span class="eyebrow"><span class="idx mono">02</span> What we do</span>
       <h2>One mobile crew for your whole fleet.</h2>
       <p>Trucks, trailers, earthmoving and machinery. If it runs on diesel, we keep it running.</p>
     </div>
-    <div class="services">
-
-      <article class="svc svc--feature reveal">
-        <div class="svc__ico"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-        <h3>24/7 Breakdown Assistance</h3>
-        <p>Broken down? One call, we roll. Day or night, weekends, public holidays. We get to you fast and get you back working.</p>
-        <a href="tel:0451073733" class="btn btn--primary" data-rev>Call 0451 073 733</a>
-      </article>
-
-      <article class="svc svc--wide reveal" data-d="1">
-        <span class="svc__num">01</span>
-        <div class="svc__ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
-        <h3>On-Site Servicing</h3>
-        <p>Logbook and scheduled servicing at your depot or site. Detailed service logs after every job. No warranty impact.</p>
-      </article>
-
-      <article class="svc svc--third reveal" data-d="2">
-        <span class="svc__num">02</span>
-        <div class="svc__ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4l-6 6 2 2 6-6a4 4 0 0 0 5.4-5.4l-2.3 2.3-1.4-1.4 2.3-2.3z"/></svg></div>
-        <h3>Mechanical Repairs</h3>
-        <p>Engines, drivetrain, brakes and undercarriage, done on site.</p>
-      </article>
-
-      <article class="svc svc--third reveal" data-d="3">
-        <span class="svc__num">03</span>
-        <div class="svc__ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg></div>
-        <h3>Auto Electrical</h3>
-        <p>Fault-code scanning, wiring, batteries and diagnostics.</p>
-      </article>
-
-      <article class="svc svc--third reveal" data-d="1">
-        <span class="svc__num">04</span>
-        <div class="svc__ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2 6 4-12 2 6h6"/></svg></div>
-        <h3>Hydraulics &amp; Hoses</h3>
-        <p>On-site hydraulic and hose repairs to keep plant moving.</p>
-      </article>
-
-      <article class="svc svc--third reveal" data-d="2">
-        <span class="svc__num">05</span>
-        <div class="svc__ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="14" height="11" rx="1"/><path d="M15 9h4l3 3v5h-7z"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></div>
-        <h3>Trailer Repairs</h3>
-        <p>Trailer servicing, electric brake upgrades and compliance.</p>
-      </article>
-
-      <article class="svc svc--third reveal" data-d="3">
-        <span class="svc__num">06</span>
-        <div class="svc__ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="m5 20 6-10 3 4 2-3 3 9"/></svg></div>
-        <h3>Welding &amp; Fabrication</h3>
-        <p>Heavy equipment welding and custom fabrication on site.</p>
-      </article>
-
-      <article class="svc svc--half reveal" data-d="1">
-        <span class="svc__num">07</span>
-        <div class="svc__ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-        <h3>Pre-Purchase Inspections</h3>
-        <p>Know what you are buying before you buy it. Full mechanical inspection and honest report.</p>
-      </article>
-
-      <article class="svc svc--half reveal" data-d="2">
-        <span class="svc__num">08</span>
-        <div class="svc__ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
-        <h3>Parts Supply &amp; Installation</h3>
-        <p>Quality parts sourced and fitted, so the job gets finished in one visit.</p>
-      </article>
-
+    <div class="manifest">
+      <a class="manifest__row manifest__row--feature reveal" href="tel:0451073733" data-rev>
+        <span class="manifest__ref mono">SVC-01</span>
+        <span class="manifest__body">
+          <span class="manifest__name">24/7 Breakdown Assistance</span>
+          <span class="manifest__desc">Broken down? One call, we roll. Day or night, weekends, public holidays. We get to you fast and get you back working.</span>
+        </span>
+        <span class="manifest__cta mono">CALL // 0451 073 733 <span class="arrow">&rarr;</span></span>
+      </a>
+      <div class="manifest__row reveal">
+        <span class="manifest__ref mono">SVC-02</span>
+        <span class="manifest__body"><span class="manifest__name">On-Site Servicing</span><span class="manifest__desc">Logbook and scheduled servicing at your depot or site. Detailed service logs after every job. No warranty impact.</span></span>
+        <span class="manifest__tag mono">ON SITE</span>
+      </div>
+      <div class="manifest__row reveal">
+        <span class="manifest__ref mono">SVC-03</span>
+        <span class="manifest__body"><span class="manifest__name">Mechanical Repairs</span><span class="manifest__desc">Engines, drivetrain, brakes and undercarriage, done on site.</span></span>
+        <span class="manifest__tag mono">ON SITE</span>
+      </div>
+      <div class="manifest__row reveal">
+        <span class="manifest__ref mono">SVC-04</span>
+        <span class="manifest__body"><span class="manifest__name">Auto Electrical &amp; Diagnostics</span><span class="manifest__desc">Fault-code scanning, wiring, batteries and diagnostics.</span></span>
+        <span class="manifest__tag mono">DIAGNOSTIC</span>
+      </div>
+      <div class="manifest__row reveal">
+        <span class="manifest__ref mono">SVC-05</span>
+        <span class="manifest__body"><span class="manifest__name">Hydraulics &amp; Hoses</span><span class="manifest__desc">On-site hydraulic and hose repairs to keep plant moving.</span></span>
+        <span class="manifest__tag mono">ON SITE</span>
+      </div>
+      <div class="manifest__row reveal">
+        <span class="manifest__ref mono">SVC-06</span>
+        <span class="manifest__body"><span class="manifest__name">Trailer Repairs</span><span class="manifest__desc">Trailer servicing, electric brake upgrades and compliance.</span></span>
+        <span class="manifest__tag mono">COMPLIANCE</span>
+      </div>
+      <div class="manifest__row reveal">
+        <span class="manifest__ref mono">SVC-07</span>
+        <span class="manifest__body"><span class="manifest__name">Welding &amp; Fabrication</span><span class="manifest__desc">Heavy equipment welding and custom fabrication on site.</span></span>
+        <span class="manifest__tag mono">ON SITE</span>
+      </div>
+      <div class="manifest__row reveal">
+        <span class="manifest__ref mono">SVC-08</span>
+        <span class="manifest__body"><span class="manifest__name">Pre-Purchase Inspections &amp; Parts</span><span class="manifest__desc">Know what you are buying before you buy it. Quality parts sourced and fitted, job finished in one visit.</span></span>
+        <span class="manifest__tag mono">INSPECTION</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============ HOW IT WORKS ============ -->
+<!-- ============ WE KNOW DIESEL (03) — engine schematic ============ -->
+<section class="section diesel" id="diesel">
+  <div class="wrap split">
+    <div class="reveal">
+      <span class="eyebrow"><span class="idx mono">03</span> We know diesel</span>
+      <h2>Trucks throw codes. We read them and fix it on site.</h2>
+      <p>Second-generation diesel mechanics with airports, ports and mining pedigree. We diagnose the fault, carry the gear to fix it where it sits, and log the work properly so your warranty stays intact.</p>
+      <ul class="enginefamilies mono" aria-label="Engine families we service">
+        <li>CUMMINS</li><li>CAT</li><li>DETROIT</li><li>PACCAR</li><li>ISUZU</li><li>HINO</li><li>FUSO</li>
+      </ul>
+    </div>
+    <div class="reveal" data-d="1">
+      <div class="engine-stage bracket-frame">
+        <canvas id="engine-canvas" class="engine-canvas" aria-hidden="true"></canvas>
+        <span class="engine-label mono">DIESEL ENGINE // FIXED-ANGLE SCHEMATIC</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS (04) — callout sequence ============ -->
 <section class="section section--tight" id="how">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow">How it works</span>
+      <span class="eyebrow"><span class="idx mono">04</span> How it works</span>
       <h2>Three steps. Back to earning.</h2>
     </div>
-    <div class="cols values" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))">
-      <div class="value reveal">
-        <div class="value__ico"><strong style="font-family:var(--font-display);font-size:1.2rem">1</strong></div>
+    <div class="sequence">
+      <div class="seq__step reveal">
+        <span class="seq__node" aria-hidden="true"></span>
+        <span class="seq__ref mono">TKT-01 // LOGGED</span>
         <h3>Call or request a callout</h3>
         <p>Tell us the vehicle, the fault and where you are. One call, day or night.</p>
       </div>
-      <div class="value reveal" data-d="1">
-        <div class="value__ico"><strong style="font-family:var(--font-display);font-size:1.2rem">2</strong></div>
+      <div class="seq__step reveal" data-d="1">
+        <span class="seq__node" aria-hidden="true"></span>
+        <span class="seq__ref mono">TKT-02 // ROLLING</span>
         <h3>We come to you</h3>
         <p>A fully equipped mobile workshop rolls to your site or the roadside. No tow needed.</p>
       </div>
-      <div class="value reveal" data-d="2">
-        <div class="value__ico"><strong style="font-family:var(--font-display);font-size:1.2rem">3</strong></div>
+      <div class="seq__step reveal" data-d="2">
+        <span class="seq__node seq__node--done" aria-hidden="true"></span>
+        <span class="seq__ref mono">TKT-03 // CLEARED</span>
         <h3>Back working, same day</h3>
         <p>We fix it on the spot where we can, log the work, and keep your fleet moving.</p>
       </div>
@@ -336,34 +354,46 @@
   </div>
 </section>
 
-<!-- ============ FLEET CARE PLAN ============ -->
+<!-- ============ TRUST STATS ============ -->
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat reveal"><div class="stat__num mono"><span class="num" data-count="24">24</span><span class="u">/</span>7</div><div class="stat__label mono">BREAKDOWN // DAY OR NIGHT</div></div>
+      <div class="stat reveal" data-d="1"><div class="stat__num mono"><span class="num" data-count="15">15</span><span class="u">+</span></div><div class="stat__label mono">YEARS // ON THE TOOLS</div></div>
+      <div class="stat reveal" data-d="2"><div class="stat__num mono"><span class="num" data-count="2">2</span><span class="u">nd</span></div><div class="stat__label mono">GENERATION // DIESEL MECHANICS</div></div>
+      <div class="stat reveal" data-d="3"><div class="stat__num mono"><span class="num" data-count="100">100</span><span class="u">%</span></div><div class="stat__label mono">LICENSED // INSURED // LOGGED</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FLEET CARE PLAN — preventative-scan ledger ============ -->
 <section class="section" id="fleetcare">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">EMTR Fleet Care</span>
-      <h2>Stop reacting to breakdowns. Start preventing them.</h2>
-      <p>A tailored maintenance program that keeps your fleet compliant, optimised and earning. Planned servicing on your schedule, on site, after hours, with no extra charge.</p>
+      <h2>Preventative scan. Catch the fault before it throws a code.</h2>
+      <p>A tailored maintenance program that keeps your fleet compliant and earning. Planned servicing on your schedule, on site, after hours, with no after-hours charge on scheduled work.</p>
     </div>
-    <div class="cols values">
-      <div class="value reveal">
-        <div class="value__ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg></div>
-        <h3>Uptime</h3>
-        <p>Catch faults early so trucks stay on the road, not in for repair.</p>
+    <div class="manifest">
+      <div class="manifest__row reveal">
+        <span class="manifest__ref mono">FC-01</span>
+        <span class="manifest__body"><span class="manifest__name">On the road, not in for repair</span><span class="manifest__desc">Catch faults early so trucks keep earning instead of sitting in for repair.</span></span>
+        <span class="manifest__tag mono">PLANNED</span>
       </div>
-      <div class="value reveal" data-d="1">
-        <div class="value__ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-        <h3>Compliance</h3>
-        <p>Logbook servicing and detailed records, inspection-ready every time.</p>
+      <div class="manifest__row reveal">
+        <span class="manifest__ref mono">FC-02</span>
+        <span class="manifest__body"><span class="manifest__name">Inspection-ready compliance</span><span class="manifest__desc">Logbook servicing and detailed records, inspection-ready every time.</span></span>
+        <span class="manifest__tag mono">LOGGED</span>
       </div>
-      <div class="value reveal" data-d="2">
-        <div class="value__ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-        <h3>Predictable costs</h3>
-        <p>Planned maintenance means fewer surprise bills and no cost blowouts.</p>
+      <div class="manifest__row reveal">
+        <span class="manifest__ref mono">FC-03</span>
+        <span class="manifest__body"><span class="manifest__name">No surprise bills</span><span class="manifest__desc">Planned maintenance means fewer surprise bills and no cost blowouts.</span></span>
+        <span class="manifest__tag mono">FIXED COST</span>
       </div>
-      <div class="value reveal" data-d="3">
-        <div class="value__ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
-        <h3>Come to you</h3>
-        <p>Everything done on site, around your run, not the other way around.</p>
+      <div class="manifest__row reveal">
+        <span class="manifest__ref mono">FC-04</span>
+        <span class="manifest__body"><span class="manifest__name">On site, around your run</span><span class="manifest__desc">Everything done on site, around your run, not the other way around.</span></span>
+        <span class="manifest__tag mono">ON SITE</span>
       </div>
     </div>
   </div>
@@ -372,7 +402,7 @@
 <!-- ============ ABOUT ============ -->
 <section class="section" id="about">
   <div class="wrap split">
-    <div class="split__media reveal">
+    <div class="split__media bracket-frame reveal">
       <img src="assets/photos/cat966.jpg" alt="EMTR servicing a CAT 966M wheel loader on site" loading="lazy">
     </div>
     <div class="reveal" data-d="1">
@@ -389,23 +419,23 @@
   </div>
 </section>
 
-<!-- ============ OUR WORK (real photos) ============ -->
+<!-- ============ OUR WORK (05) — callout log ============ -->
 <section class="section section--tight" id="work">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow">Our work</span>
+      <span class="eyebrow"><span class="idx mono">05</span> Our work</span>
       <h2>Real jobs. Real gear. On site.</h2>
       <p>A look at what we keep running across Sydney and NSW.</p>
     </div>
     <div class="gallery reveal" data-d="1">
-      <figure><img src="assets/photos/keep_moving.jpg" alt="Truck and articulated hauler serviced on site" loading="lazy"><figcaption>Fleet servicing, trucks and earthmoving</figcaption></figure>
-      <figure><img src="assets/photos/onsite_a_service.jpg" alt="On-site A-service on a prime mover" loading="lazy"><figcaption>On-site A-service, back on the road</figcaption></figure>
-      <figure><img src="assets/photos/whyte_civil.jpg" alt="On-site breakdown repair next to an excavator" loading="lazy"><figcaption>Breakdown sorted on site, within the hour</figcaption></figure>
-      <figure><img src="assets/photos/hydraulic.jpg" alt="Hydraulic and hose repair detail" loading="lazy"><figcaption>Hydraulic and hose repairs</figcaption></figure>
-      <figure><img src="assets/photos/cat_250hr.jpg" alt="250 hour service on a CAT excavator" loading="lazy"><figcaption>250-hour service, CAT excavator</figcaption></figure>
-      <figure><img src="assets/photos/turntable.jpg" alt="Turntable installation on a prime mover" loading="lazy"><figcaption>Turntable install on a prime mover</figcaption></figure>
-      <figure><img src="assets/photos/welding.jpg" alt="Mobile heavy equipment welding" loading="lazy"><figcaption>Mobile heavy-equipment welding</figcaption></figure>
-      <figure><img src="assets/photos/trailer_brakes.jpg" alt="Trailer brake upgrade" loading="lazy"><figcaption>Trailer brake upgrade</figcaption></figure>
+      <figure><img src="assets/photos/keep_moving.jpg" alt="Truck and articulated hauler serviced on site" loading="lazy"><figcaption><span class="mono">JOB-01 // WESTERN SYDNEY</span>Fleet servicing, trucks and earthmoving</figcaption></figure>
+      <figure><img src="assets/photos/onsite_a_service.jpg" alt="On-site A-service on a prime mover" loading="lazy"><figcaption><span class="mono">JOB-02 // ON SITE</span>On-site A-service, back on the road</figcaption></figure>
+      <figure><img src="assets/photos/whyte_civil.jpg" alt="On-site breakdown repair next to an excavator" loading="lazy"><figcaption><span class="mono">JOB-03 // ROADSIDE</span>Breakdown sorted on site, within the hour</figcaption></figure>
+      <figure><img src="assets/photos/hydraulic.jpg" alt="Hydraulic and hose repair detail" loading="lazy"><figcaption><span class="mono">JOB-04 // ON SITE</span>Hydraulic and hose repairs</figcaption></figure>
+      <figure><img src="assets/photos/cat_250hr.jpg" alt="250 hour service on a CAT excavator" loading="lazy"><figcaption><span class="mono">JOB-05 // CAT EXCAVATOR</span>250-hour service, CAT excavator</figcaption></figure>
+      <figure><img src="assets/photos/turntable.jpg" alt="Turntable installation on a prime mover" loading="lazy"><figcaption><span class="mono">JOB-06 // PRIME MOVER</span>Turntable install on a prime mover</figcaption></figure>
+      <figure><img src="assets/photos/welding.jpg" alt="Mobile heavy equipment welding" loading="lazy"><figcaption><span class="mono">JOB-07 // ON SITE</span>Mobile heavy-equipment welding</figcaption></figure>
+      <figure><img src="assets/photos/trailer_brakes.jpg" alt="Trailer brake upgrade" loading="lazy"><figcaption><span class="mono">JOB-08 // COMPLIANCE</span>Trailer brake upgrade</figcaption></figure>
     </div>
   </div>
 </section>
@@ -417,64 +447,67 @@
       <span class="eyebrow">From the people who run on us</span>
       <h2>Trusted by operators across NSW.</h2>
     </div>
-    <div class="quotes">
-      <figure class="quote reveal">
+    <div class="logbook">
+      <figure class="logrow reveal">
+        <span class="logrow__ref mono">LOG // WESTERN SYDNEY</span>
         <blockquote>Truck went down on a job and EMTR had it sorted within the hour. Back working the same day.</blockquote>
-        <figcaption><span class="quote__by">Civil contractor</span><span class="quote__loc">Western Sydney</span></figcaption>
+        <figcaption class="mono">Civil contractor</figcaption>
       </figure>
-      <figure class="quote reveal" data-d="1">
+      <figure class="logrow reveal" data-d="1">
+        <span class="logrow__ref mono">LOG // NSW</span>
         <blockquote>Professional, knowledgeable and the follow-up was spot on. Rare to find a mechanic you actually trust.</blockquote>
-        <figcaption><span class="quote__by">Fleet client</span><span class="quote__loc">NSW</span></figcaption>
+        <figcaption class="mono">Fleet client</figcaption>
       </figure>
-      <figure class="quote reveal" data-d="2">
+      <figure class="logrow reveal" data-d="2">
+        <span class="logrow__ref mono">LOG // GREATER SYDNEY</span>
         <blockquote>They have looked after our fleet for over a year. On site, on time, no blowouts.</blockquote>
-        <figcaption><span class="quote__by">Transport operator</span><span class="quote__loc">Greater Sydney</span></figcaption>
+        <figcaption class="mono">Transport operator</figcaption>
       </figure>
     </div>
   </div>
 </section>
 
-<!-- ============ FAQ ============ -->
+<!-- ============ FAQ (06) ============ -->
 <section class="section" id="faq">
   <div class="wrap" style="max-width:860px">
     <div class="section-head reveal">
-      <span class="eyebrow">Questions, sorted</span>
+      <span class="eyebrow"><span class="idx mono">06</span> Questions, sorted</span>
       <h2>The stuff fleet managers ask first.</h2>
     </div>
     <div class="faq reveal" data-d="1">
       <details class="faq__item">
-        <summary>Do you come to me?</summary>
+        <summary><span class="faq__ref mono">Q-01</span> Do you come to me?</summary>
         <div class="faq__body"><p>Yes. EMTR is fully mobile. We bring the workshop to your depot, work site or the roadside, anywhere across Sydney and NSW. No tow truck, no truck off the road for a week.</p></div>
       </details>
       <details class="faq__item">
-        <summary>What areas do you cover?</summary>
+        <summary><span class="faq__ref mono">Q-02</span> What areas do you cover?</summary>
         <div class="faq__body"><p>Sydney metro, Western Sydney and greater NSW, with a service radius of around 60 km from Western Sydney plus regional callouts. Not sure if we reach you? Give us a call and we will tell you straight.</p></div>
       </details>
       <details class="faq__item">
-        <summary>Are you available after hours and on weekends?</summary>
+        <summary><span class="faq__ref mono">Q-03</span> Are you available after hours and on weekends?</summary>
         <div class="faq__body"><p>We run 24/7 for breakdowns, including weekends and public holidays. Scheduled work booked outside business hours carries no after-hours charge.</p></div>
       </details>
       <details class="faq__item">
-        <summary>Will servicing with you affect my manufacturer warranty?</summary>
+        <summary><span class="faq__ref mono">Q-04</span> Will servicing with you affect my manufacturer warranty?</summary>
         <div class="faq__body"><p>No. We carry out logbook and scheduled servicing to manufacturer specifications and provide detailed service records after every job, so your warranty stays intact.</p></div>
       </details>
       <details class="faq__item">
-        <summary>What vehicles and brands do you work on?</summary>
+        <summary><span class="faq__ref mono">Q-05</span> What vehicles and brands do you work on?</summary>
         <div class="faq__body"><p>Trucks, trailers, fleet vehicles, earthmoving and machinery. Engine families include Cummins, CAT, Detroit, PACCAR, Isuzu, Hino and Fuso, among others.</p></div>
       </details>
       <details class="faq__item">
-        <summary>How fast can you get to a breakdown?</summary>
+        <summary><span class="faq__ref mono">Q-06</span> How fast can you get to a breakdown?</summary>
         <div class="faq__body"><p>Breakdowns jump the queue. Call us and we will give you an honest ETA on the spot, then get rolling.</p></div>
       </details>
       <details class="faq__item">
-        <summary>Do you offer fleet maintenance plans?</summary>
+        <summary><span class="faq__ref mono">Q-07</span> Do you offer fleet maintenance plans?</summary>
         <div class="faq__body"><p>Yes. EMTR Fleet Care is a tailored preventative-maintenance program built around your run, with invoicing accounts available for business customers.</p></div>
       </details>
     </div>
   </div>
 </section>
 
-<!-- ============ CONTACT ============ -->
+<!-- ============ CONTACT (07) ============ -->
 <section class="section" id="contact">
   <div class="wrap">
     <div class="cta-band reveal" style="margin-bottom:clamp(2.5rem,5vw,4rem)">
@@ -488,21 +521,21 @@
 
     <div class="contact" id="enquiry">
       <div class="contact__info reveal">
-        <span class="eyebrow">Get in touch</span>
+        <span class="eyebrow"><span class="idx mono">07</span> Get in touch</span>
         <h2>Tell us what is going on.</h2>
         <p>Send through the vehicle, the fault and where you are. We will get back to you fast. For breakdowns, calling is quickest.</p>
         <div class="contact__cards">
           <a href="tel:0451073733" class="cc">
             <span class="cc__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
-            <span><span class="cc__label">Call 24/7</span><span class="cc__value">0451 073 733</span></span>
+            <span><span class="cc__label mono">CALL 24/7</span><span class="cc__value">0451 073 733</span></span>
           </a>
           <a href="mailto:info@emtr.com.au" class="cc">
             <span class="cc__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span>
-            <span><span class="cc__label">Email</span><span class="cc__value">info@emtr.com.au</span></span>
+            <span><span class="cc__label mono">EMAIL</span><span class="cc__value">info@emtr.com.au</span></span>
           </a>
           <a href="https://www.instagram.com/emtrfleetmaintenance/" target="_blank" rel="noopener" class="cc">
             <span class="cc__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span>
-            <span><span class="cc__label">See our work</span><span class="cc__value">@emtrfleetmaintenance</span></span>
+            <span><span class="cc__label mono">SEE OUR WORK</span><span class="cc__value">@emtrfleetmaintenance</span></span>
           </a>
         </div>
       </div>
@@ -575,7 +608,7 @@
         </div>
       </div>
       <div class="footer__col">
-        <h4>Services</h4>
+        <h4 class="mono">Services</h4>
         <a href="#services">24/7 Breakdown</a>
         <a href="#services">On-site servicing</a>
         <a href="#services">Mechanical repairs</a>
@@ -585,20 +618,27 @@
         <a href="#fleetcare">EMTR Fleet Care</a>
       </div>
       <div class="footer__col">
-        <h4>Contact</h4>
+        <h4 class="mono">Contact</h4>
         <a href="tel:0451073733">0451 073 733</a>
         <a href="mailto:info@emtr.com.au">info@emtr.com.au</a>
         <a href="#coverage">Sydney &amp; NSW</a>
         <a href="#contact">Request a callout</a>
-        <p style="color:var(--faint);font-size:0.82rem;margin-top:1rem">Open 24/7 for breakdowns<br>ABN 00 000 000 000<br>Licence No. 000000</p>
+        <p class="mono" style="color:var(--faint);font-size:0.78rem;margin-top:1rem">OPEN 24/7 FOR BREAKDOWNS<br>LICENSED &amp; INSURED // ABN + LICENCE ON REQUEST</p>
       </div>
     </div>
     <div class="footer__bottom">
-      <span>&copy; <span id="year">2026</span> EMTR Fleet Maintenance &amp; Repairs. All rights reserved.</span>
-      <span>Mobile diesel mechanics · Sydney &amp; NSW</span>
+      <span class="mono">END OF MANIFEST // &copy; <span id="year">2026</span> EMTR FLEET MAINTENANCE &amp; REPAIRS</span>
+      <span class="mono">MOBILE DIESEL MECHANICS // SYDNEY &amp; NSW</span>
     </div>
   </div>
 </footer>
+
+<!-- fixed mono HUD status rail (desktop) -->
+<div class="hud" id="hud">
+  <span class="hud__cell mono"><span class="hud__dot" aria-hidden="true"></span> STATUS // 24/7 BREAKDOWN</span>
+  <span class="hud__cell mono">COVERAGE // ~60KM + REGIONAL NSW</span>
+  <a class="hud__cell hud__line mono" href="tel:0451073733">LINE // 0451 073 733</a>
+</div>
 
 <!-- gallery lightbox -->
 <div class="lightbox" id="lightbox" aria-hidden="true">
@@ -612,8 +652,8 @@
   Call now, day or night
 </a>
 
-<script type="module" src="js/engine.js?v=17"></script>
+<script type="module" src="js/engine.js?v=20"></script>
 <script defer src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
-<script src="js/main.js?v=10" defer></script>
+<script src="js/main.js?v=20" defer></script>
 </body>
 </html>
