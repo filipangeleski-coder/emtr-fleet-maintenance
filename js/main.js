@@ -108,25 +108,6 @@
       if (eta) { eta.setAttribute("x", "240"); eta.setAttribute("y", "158"); eta.setAttribute("text-anchor", "middle"); }
     })();
 
-    // live Leaflet backdrop on desktop only; the SVG route carries the concept everywhere else.
-    if (window.L && !reduced0 && window.innerWidth >= 768) {
-      requestIdle(function () {
-        var el = document.getElementById("heroMap");
-        if (!el) return;
-        try {
-          var m = window.L.map(el, {
-            center: [-33.74, 151.0], zoom: 10, zoomControl: false, attributionControl: true,
-            dragging: false, scrollWheelZoom: false, touchZoom: false, doubleClickZoom: false, boxZoom: false, keyboard: false
-          });
-          window.L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-            maxZoom: 19, attribution: "&copy; OpenStreetMap, &copy; CARTO"
-          }).addTo(m);
-          setTimeout(function () { m.invalidateSize(); }, 200);
-          el.classList.add("ready");
-        } catch (e) { /* tiles failed: scrim + route still carry the hero */ }
-      });
-    }
-
     function flip() {
       if (!diag) return;
       var cleared = diag.getAttribute("data-cleared");
