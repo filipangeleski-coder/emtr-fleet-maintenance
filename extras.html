@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>EMTR — Customer-Capture Add-ons | Stop losing jobs to missed calls</title>
+<title>EMTR — Smart add-ons to stop losing work</title>
 <meta name="robots" content="noindex">
-<meta name="description" content="Optional automation add-ons for EMTR Fleet Maintenance: missed-call text-back, AI enquiry assistant, after-hours auto-reply and review automation. Costs and integration.">
+<meta name="description" content="A few optional add-ons for EMTR Fleet Maintenance: catch missed calls, sort website enquiries, reply after hours and build Google reviews. Plain and simple.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -14,14 +14,14 @@
   --ink:oklch(0.17 0.022 252); --ink-2:oklch(0.21 0.028 252); --surface:oklch(0.25 0.03 252);
   --surface-2:oklch(0.30 0.032 252); --line:oklch(0.36 0.03 252); --steel:oklch(0.74 0.018 252);
   --blue:oklch(0.62 0.165 252); --blue-bright:oklch(0.74 0.15 240); --blue-deep:oklch(0.42 0.13 256);
-  --paper:oklch(0.965 0.01 252); --muted:oklch(0.74 0.02 252); --faint:oklch(0.58 0.018 252);
+  --paper:oklch(0.965 0.01 252); --muted:oklch(0.74 0.02 252); --faint:oklch(0.66 0.018 252);
   --shadow:0 18px 50px -20px oklch(0.10 0.04 256 / .8);
   --fd:"Archivo",system-ui,sans-serif; --fb:"Inter",system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0}
 body{font-family:var(--fb);background:var(--ink);color:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased}
-.wrap{width:100%;max-width:920px;margin-inline:auto;padding-inline:clamp(1.1rem,4vw,2.4rem)}
-h1,h2,h3,h4{font-family:var(--fd);font-weight:800;line-height:1.05;letter-spacing:-0.01em}
+.wrap{width:100%;max-width:900px;margin-inline:auto;padding-inline:clamp(1.1rem,4vw,2.4rem)}
+h1,h2,h3,h4{font-family:var(--fd);font-weight:800;line-height:1.06;letter-spacing:-0.01em}
 a{color:var(--blue-bright);text-decoration:none}
 .eyebrow{font-weight:600;font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-bright);display:inline-flex;align-items:center;gap:.6rem}
 .eyebrow::before{content:"";width:26px;height:2px;background:var(--blue-bright);display:inline-block}
@@ -30,52 +30,40 @@ header{position:relative;overflow:hidden;border-bottom:1px solid var(--line);
   background:radial-gradient(90% 130% at 85% 0%, oklch(0.32 0.1 252 / .5), transparent 60%), linear-gradient(180deg,var(--ink-2),var(--ink))}
 .head-inner{padding-block:clamp(2.6rem,6vw,4.5rem)}
 .head-inner img{height:40px;margin-bottom:2rem}
-header h1{font-size:clamp(2rem,5.2vw,3.4rem);font-weight:900;max-width:18ch}
+header h1{font-size:clamp(2rem,5.2vw,3.4rem);font-weight:900;max-width:16ch}
 header h1 .hl{color:var(--blue-bright)}
-header p{color:var(--muted);font-size:1.12rem;margin-top:1.1rem;max-width:60ch}
+header p{color:var(--muted);font-size:1.12rem;margin-top:1.1rem;max-width:58ch}
 
-.section{padding-block:clamp(2.6rem,5vw,4rem)}
-.section h2{font-size:clamp(1.5rem,3.4vw,2.2rem);margin-bottom:.5rem}
-.lead{color:var(--muted);max-width:64ch;margin-bottom:1.8rem}
+.section{padding-block:clamp(2.4rem,5vw,3.6rem)}
+.section h2{font-size:clamp(1.5rem,3.4vw,2.2rem);margin-bottom:.6rem}
+.lead{color:var(--muted);max-width:62ch;margin-bottom:1.8rem}
 
-.callout{border:1px solid oklch(0.5 0.1 252);border-radius:16px;padding:1.6rem 1.8rem;margin:1.6rem 0;
+.callout{border:1px solid oklch(0.5 0.1 252);border-radius:16px;padding:1.6rem 1.8rem;margin:1.4rem 0;
   background:radial-gradient(120% 120% at 100% 0%, oklch(0.42 0.14 252 / .4), transparent 62%), linear-gradient(180deg,var(--surface-2),var(--surface))}
 .callout strong{color:var(--paper)}
 
-.tool{border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,var(--surface),oklch(0.215 0.028 252));padding:1.7rem;margin-bottom:1.3rem}
-.tool__top{display:flex;align-items:flex-start;gap:1rem;justify-content:space-between;flex-wrap:wrap}
-.tool__title{display:flex;align-items:center;gap:.8rem}
-.tool__ico{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:oklch(0.62 0.165 252 / .15);color:var(--blue-bright);flex:none}
-.tool h3{font-size:1.2rem}
-.badge{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .7rem;border-radius:100px;white-space:nowrap}
+.tool{border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,var(--surface),oklch(0.215 0.028 252));padding:1.7rem;margin-bottom:1.2rem}
+.tool__top{display:flex;align-items:center;gap:1rem;justify-content:space-between;flex-wrap:wrap}
+.tool__title{display:flex;align-items:center;gap:.85rem}
+.tool__ico{width:44px;height:44px;border-radius:11px;display:grid;place-items:center;background:oklch(0.62 0.165 252 / .15);color:var(--blue-bright);flex:none}
+.tool h3{font-size:1.25rem}
+.badge{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .7rem;border-radius:100px;white-space:nowrap}
 .badge--now{background:oklch(0.62 0.165 252 / .18);color:var(--blue-bright);border:1px solid oklch(0.5 0.1 252)}
-.badge--p2{background:oklch(0.3 0.03 252);color:var(--steel);border:1px solid var(--line)}
-.tool__why{color:var(--muted);margin:1rem 0 1.1rem}
-.tool__grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;border-top:1px solid var(--line);padding-top:1.1rem}
-.tool__grid h4{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:.35rem}
-.tool__grid p{font-size:.93rem;color:var(--paper)}
-.tool__grid .price{font-family:var(--fd);font-weight:800;color:var(--blue-bright);font-size:1.05rem}
-.tool__grid small{color:var(--faint);font-weight:400}
+.badge--inc{background:oklch(0.3 0.03 252);color:var(--steel);border:1px solid var(--line)}
+.badge--next{background:oklch(0.3 0.03 252);color:var(--steel);border:1px solid var(--line)}
+.tool__what{color:var(--paper);font-weight:600;font-size:1.06rem;margin:1rem 0 .9rem}
+ul.clean{list-style:none;padding:0;display:grid;gap:.65rem}
+ul.clean li{display:flex;gap:.7rem;color:var(--muted)}
+ul.clean svg{color:var(--blue-bright);flex:none;margin-top:4px}
 
-table.bundle{width:100%;border-collapse:collapse;margin-top:1rem;font-size:.96rem}
-table.bundle th,table.bundle td{text-align:left;padding:.85rem 1rem;border-bottom:1px solid var(--line)}
-table.bundle th{color:var(--faint);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
-table.bundle td.amt{font-family:var(--fd);font-weight:700;color:var(--paper);white-space:nowrap}
-table.bundle tr.total td{border-bottom:none;border-top:2px solid oklch(0.5 0.1 252);color:var(--blue-bright);font-weight:800;font-family:var(--fd)}
+.cost{border:1px solid oklch(0.5 0.1 252);border-radius:16px;padding:1.8rem;margin-top:.6rem;text-align:center;
+  background:radial-gradient(120% 140% at 50% 0%, oklch(0.42 0.13 256 / .45), transparent 62%), linear-gradient(180deg,var(--surface-2),var(--ink-2))}
+.cost .big{font-family:var(--fd);font-weight:900;font-size:clamp(1.8rem,5vw,2.6rem);color:var(--blue-bright);line-height:1.1}
+.cost p{color:var(--muted);margin-top:.8rem;max-width:48ch;margin-inline:auto}
 
-ul.clean{list-style:none;padding:0;display:grid;gap:.7rem;margin-top:1rem}
-ul.clean li{display:flex;gap:.7rem;color:var(--paper)}
-ul.clean svg{color:var(--blue-bright);flex:none;margin-top:3px}
-
-.note{font-size:.92rem;color:var(--muted);background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:1.2rem 1.4rem;margin-top:1.2rem}
-.note b{color:var(--paper)}
-
-footer{border-top:1px solid var(--line);background:var(--ink-2);padding-block:2.4rem;margin-top:2rem}
+footer{border-top:1px solid var(--line);background:var(--ink-2);padding-block:2.4rem;margin-top:1.5rem}
 footer .row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;align-items:center}
 footer a.btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--blue);color:oklch(0.99 0.01 252);font-weight:600;padding:.85rem 1.5rem;border-radius:100px}
-.src{font-size:.78rem;color:var(--faint);margin-top:.6rem;line-height:1.6}
-.src a{color:var(--steel)}
-@media(max-width:620px){ .tool__grid{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
@@ -83,23 +71,15 @@ footer a.btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--b
 <header>
   <div class="wrap head-inner">
     <img src="https://filipangeleski-coder.github.io/emtr-fleet-maintenance/assets/emtr-logo-white.png" alt="EMTR Fleet Maintenance & Repairs">
-    <span class="eyebrow">Optional add-ons</span>
-    <h1 style="margin-top:1rem">Stop losing jobs to <span class="hl">missed calls and slow replies.</span></h1>
-    <p>A short rundown of the customer-capture tools we can bolt onto the EMTR site and phone. Every one of these catches work you're currently losing when you're under a truck or asleep at 2am. Real costs, what each does, and how it plugs in.</p>
+    <span class="eyebrow">Optional extras</span>
+    <h1 style="margin-top:1rem">A few smart add-ons to <span class="hl">stop losing work.</span></h1>
+    <p>You can't answer the phone with your head under a truck, or at 2am. The bloke whose truck is down won't leave a voicemail, he rings the next mechanic. These few add-ons catch that work for you, day and night. Here's what each one does and how it helps.</p>
   </div>
 </header>
 
 <main class="wrap">
 
 <section class="section">
-  <div class="callout">
-    <strong>The problem worth fixing first.</strong> A 24/7 mobile mechanic misses calls constantly, on a job, driving, or off the tools. A caller whose truck is down won't leave a voicemail; they ring the next bloke. Industry data puts missed-call recovery at <strong>30-60% of those leads</strong> if you text them back within a minute. That's the single highest-return automation for a business like this, and it doesn't even live on the website. It lives with the phone.
-  </div>
-</section>
-
-<section class="section">
-  <h2>The tools</h2>
-  <p class="lead">Listed in the order I'd switch them on. The website's enquiry form is already built and free; these add the automation around it.</p>
 
   <!-- 1 -->
   <div class="tool">
@@ -108,13 +88,14 @@ footer a.btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--b
         <span class="tool__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
         <h3>Missed-call text-back</h3>
       </div>
-      <span class="badge badge--now">Start here</span>
+      <span class="badge badge--now">The big one</span>
     </div>
-    <p class="tool__why">Any call you don't pick up triggers an instant SMS within ~30 seconds: <em>"On a job right now, send your vehicle, the fault and your location and I'll call you straight back."</em> Keeps the lead warm instead of letting them ring a competitor. Highest ROI of anything here.</p>
-    <div class="tool__grid">
-      <div><h4>Running cost</h4><p class="price">~AU$15-45/mo <small>(DIY)</small></p><p style="color:var(--muted);font-size:.88rem;margin-top:.3rem">Twilio number US$8.25/mo + ~US$0.05 per SMS sent. Or a managed tool from ~US$15-65/mo.</p></div>
-      <div><h4>How it plugs in</h4><p>Sits on a dedicated business mobile number that forwards to your phone. Independent of the website, works even before the site is live.</p></div>
-    </div>
+    <p class="tool__what">Miss a call, and it texts them straight back for you.</p>
+    <ul class="clean">
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Within seconds they get a message: "On a job right now. Send your truck, the fault and where you are, and I'll call you straight back."</li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Keeps the customer with you instead of ringing the next mechanic down the list.</li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> The job details land on your phone while you're still under the truck.</li>
+    </ul>
   </div>
 
   <!-- 2 -->
@@ -122,15 +103,16 @@ footer a.btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--b
     <div class="tool__top">
       <div class="tool__title">
         <span class="tool__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
-        <h3>Website AI enquiry assistant</h3>
+        <h3>Website enquiry helper</h3>
       </div>
-      <span class="badge badge--now">Start here</span>
+      <span class="badge badge--now">The big one</span>
     </div>
-    <p class="tool__why">A chat box on the site that talks a visitor through the details that actually matter, vehicle and make, the fault, how urgent (breakdown vs service), and location, then fires a clean, structured lead straight to your phone and email. No more vague "call me" messages. For non-urgent work it can take a soft "what day suits" without locking a rigid calendar slot.</p>
-    <div class="tool__grid">
-      <div><h4>Running cost</h4><p class="price">~AU$10-25/mo <small>(DIY)</small></p><p style="color:var(--muted);font-size:.88rem;margin-top:.3rem">Runs on Claude Haiku, under 1 cent per conversation, plus small hosting. Off-the-shelf (Tidio + AI) runs ~US$68-150/mo.</p></div>
-      <div><h4>How it plugs in</h4><p>A single line of code on the site. No new system to learn; leads land in your inbox/SMS.</p></div>
-    </div>
+    <p class="tool__what">A smart chat on your website that asks the right questions for you.</p>
+    <ul class="clean">
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Every enquiry lands with the vehicle, the fault, how urgent it is and where they are, already sorted.</li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> No more vague "give us a call" messages with nothing to go on.</li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Tells a real breakdown apart from a routine service, so you know what to drop everything for.</li>
+    </ul>
   </div>
 
   <!-- 3 -->
@@ -140,13 +122,14 @@ footer a.btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--b
         <span class="tool__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
         <h3>After-hours auto-reply</h3>
       </div>
-      <span class="badge badge--now">Included</span>
+      <span class="badge badge--inc">Built in</span>
     </div>
-    <p class="tool__why">Outside set hours, anyone who calls or messages gets an instant reply that you run 24/7 for genuine breakdowns and will confirm scheduled work in the morning. Sets expectations, stops the "did they even get my message" worry, and flags true emergencies.</p>
-    <div class="tool__grid">
-      <div><h4>Running cost</h4><p class="price">~AU$0 extra</p><p style="color:var(--muted);font-size:.88rem;margin-top:.3rem">A time-of-day rule on the two tools above, not a separate subscription.</p></div>
-      <div><h4>How it plugs in</h4><p>Configured once. Switches itself on and off by the clock.</p></div>
-    </div>
+    <p class="tool__what">Answers for you when you're asleep or flat out.</p>
+    <ul class="clean">
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Anyone who messages after hours hears back instantly, so no one's left wondering if you got it.</li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Lets them know you run 24/7 for genuine breakdowns, and you'll sort scheduled work in the morning.</li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Comes built into the two above. Nothing extra to pay.</li>
+    </ul>
   </div>
 
   <!-- 4 -->
@@ -156,46 +139,33 @@ footer a.btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--b
         <span class="tool__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.9L12 17.8 5.9 21l1.2-6.9-5-4.8 6.9-.9z"/></svg></span>
         <h3>Automatic review requests</h3>
       </div>
-      <span class="badge badge--p2">Phase 2</span>
+      <span class="badge badge--next">Do this next</span>
     </div>
-    <p class="tool__why">After a job's done, an automatic SMS asks the customer for a Google review with a one-tap link. Google reviews are the number-one driver of both local trust and ranking, and right now that's the biggest gap. Worth doing once the lead-capture above is live, no point amplifying reputation before you've stopped leaking leads.</p>
-    <div class="tool__grid">
-      <div><h4>Running cost</h4><p class="price">cents per review <small>(DIY)</small></p><p style="color:var(--muted);font-size:.88rem;margin-top:.3rem">One SMS per finished job. Managed (NiceJob) is US$75/mo if you'd rather it run itself.</p></div>
-      <div><h4>How it plugs in</h4><p>Triggered when you mark a job done. Uses the same SMS number as tool 1.</p></div>
-    </div>
+    <p class="tool__what">Texts the customer for a Google review once the job's done.</p>
+    <ul class="clean">
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> More Google reviews means more trust, and you show up higher when someone searches for a mechanic.</li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> One tap for the customer, nothing for you to chase up.</li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Best switched on once the lead-catchers above are running.</li>
+    </ul>
   </div>
 </section>
 
 <section class="section">
-  <h2>Recommended starter bundle</h2>
-  <p class="lead">Switch on the two that capture leads first. Review automation follows once those are humming. All figures are running costs; setup is on us.</p>
-  <table class="bundle">
-    <thead><tr><th>Tool</th><th>What it does</th><th>Running cost (DIY)</th></tr></thead>
-    <tbody>
-      <tr><td><b>Missed-call text-back</b></td><td>Recovers missed calls</td><td class="amt">~AU$15-45/mo</td></tr>
-      <tr><td><b>AI enquiry assistant</b></td><td>Captures website leads</td><td class="amt">~AU$10-25/mo</td></tr>
-      <tr><td><b>After-hours auto-reply</b></td><td>Covers off-hours</td><td class="amt">included</td></tr>
-      <tr class="total"><td>Starter total</td><td>Stops the leaks</td><td class="amt">~AU$25-70/mo</td></tr>
-      <tr><td>+ Review automation <span style="color:var(--faint)">(phase 2)</span></td><td>Builds Google reputation</td><td class="amt">cents/job or US$75/mo</td></tr>
-    </tbody>
-  </table>
+  <h2>What it costs</h2>
+  <div class="cost">
+    <div class="big">Roughly $25 to $70 a month</div>
+    <p>That covers the running costs of the three lead-catchers. One breakdown job you would have lost pays for the lot many times over. We build and set it all up. You just run it.</p>
+  </div>
 </section>
 
 <section class="section">
   <h2>Why it's worth it</h2>
-  <ul class="clean">
-    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> One recovered breakdown job a month covers the entire bundle many times over.</li>
+  <ul class="clean" style="max-width:62ch">
+    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> One recovered breakdown a month covers everything many times over.</li>
     <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> No call goes cold while you're on the tools, even at 2am.</li>
-    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Leads arrive already qualified, vehicle, fault, urgency, location, so you quote faster.</li>
-    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> It runs itself. No new software to babysit.</li>
+    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Leads turn up already sorted, so you can quote faster and get rolling.</li>
+    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> It runs itself. Nothing new to learn, nothing to babysit.</li>
   </ul>
-
-  <div class="note">
-    <b>The honest version.</b> Two ways to run these: <b>DIY</b> (we build them on Twilio + Claude, you pay only the small running costs above) or <b>off-the-shelf</b> (turnkey apps, more expensive monthly: missed-call tools US$15-65/mo, AI chat US$68-150/mo, reviews US$75/mo). DIY is cheaper to run and we own it. One setup note: sending business SMS in Australia needs a quick sender registration (A2P), it's a few days, not a cost worth worrying about. Prices are current as of June 2026 and quoted from each provider; Twilio bills in USD (AUD figures use roughly 1.5x).
-  </div>
-  <p class="src">
-    Sources: Twilio SMS &amp; number pricing — <a href="https://www.twilio.com/en-us/sms/pricing/au">twilio.com/sms/pricing/au</a> (US$0.0515 out / US$0.0075 in / US$8.25 number). Missed-call text-back ROI &amp; tool pricing — <a href="https://netpartners.marketing/missed-call-text-back-highest-roi-automation-service-businesses/">netpartners.marketing</a>, <a href="https://www.quo.com/blog/missed-call-text-back-software/">quo.com</a>. AI chat pricing — <a href="https://www.tidio.com/blog/chatbot-pricing/">tidio.com</a>. Review automation — <a href="https://get.nicejob.com/resources/the-best-review-software-for-small-home-service-businesses-in-2026">nicejob.com</a>.
-  </p>
 </section>
 
 </main>
@@ -204,7 +174,7 @@ footer a.btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--b
   <div class="wrap row">
     <div>
       <div style="font-family:var(--fd);font-weight:800;font-size:1.1rem">EMTR Fleet Maintenance &amp; Repairs</div>
-      <div style="color:var(--faint);font-size:.9rem;margin-top:.3rem">Mobile diesel &amp; fleet mechanics · Sydney &amp; NSW · 0451 073 733</div>
+      <div style="color:var(--faint);font-size:.9rem;margin-top:.3rem">Mobile diesel &amp; fleet mechanics &middot; Sydney &amp; NSW &middot; 0451 073 733</div>
     </div>
     <a class="btn" href="https://filipangeleski-coder.github.io/emtr-fleet-maintenance/">View the website &rarr;</a>
   </div>
