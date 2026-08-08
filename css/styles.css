@@ -224,7 +224,8 @@ h1, h2, h3, h4 {
 
 /* ---------- marquee strip ---------- */
 .marquee { border-block: 1px solid var(--line); background: var(--ink-2); overflow: hidden; }
-.marquee__track { display: flex; gap: 3.5rem; padding-block: 1.1rem; width: max-content; animation: slide 36s linear infinite; }
+/* duration scales with item count so the strip keeps the same px/sec: 24 brands = 72s */
+.marquee__track { display: flex; gap: 3.5rem; padding-block: 1.1rem; width: max-content; animation: slide 72s linear infinite; }
 .marquee:hover .marquee__track { animation-play-state: paused; }
 .marquee__item { display: inline-flex; align-items: center; gap: 0.8rem; color: var(--steel); font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; letter-spacing: 0.02em; text-transform: uppercase; white-space: nowrap; }
 .marquee__item .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
