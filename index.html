@@ -21,7 +21,6 @@
 <!-- Fonts: Archivo (display) + Inter (body) + JetBrains Mono (restrained instrument refs) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://unpkg.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
 <script>document.documentElement.classList.add('js');</script>
@@ -72,9 +71,10 @@
 }
 </script>
 
-<!-- Leaflet (real coverage map) -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- Leaflet (real coverage map). Self-hosted, not unpkg: an unpinned third-party CDN script is
+     the one live supply-chain vector on a static site (cf. polyfill.io, 100k+ sites, 2024). -->
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css?v=23">
+<script defer src="vendor/leaflet/leaflet.js?v=23"></script>
 </head>
 
 <body>
@@ -660,7 +660,7 @@
   Call now, day or night
 </a>
 
-<script defer src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+<script defer src="vendor/lenis.min.js?v=23"></script>
 <script src="js/main.js?v=23" defer></script>
 </body>
 </html>
