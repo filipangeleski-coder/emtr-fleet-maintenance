@@ -24,7 +24,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
 <script>document.documentElement.classList.add('js');</script>
-<link rel="stylesheet" href="css/styles.css?v=24">
+<link rel="stylesheet" href="css/styles.css?v=25">
 
 <!-- LocalBusiness / AutoRepair structured data. No aggregateRating until real reviews exist. -->
 <script type="application/ld+json">
@@ -73,8 +73,8 @@
 
 <!-- Leaflet (real coverage map). Self-hosted, not unpkg: an unpinned third-party CDN script is
      the one live supply-chain vector on a static site (cf. polyfill.io, 100k+ sites, 2024). -->
-<link rel="stylesheet" href="vendor/leaflet/leaflet.css?v=24">
-<script defer src="vendor/leaflet/leaflet.js?v=24"></script>
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css?v=25">
+<script defer src="vendor/leaflet/leaflet.js?v=25"></script>
 </head>
 
 <body>
@@ -136,6 +136,13 @@
 
 <!-- ============ HERO — real on-site photo + the callout route ============ -->
 <section class="hero" id="hero">
+  <!-- PLACEHOLDER FOOTAGE: EMTR's own Instagram post of the Metro Tipper Hire Kenworth
+       (8 Dec 2021). Carries a TikTok watermark. Swap for the original file when Jono
+       sends it. One-shot, never loops, holds on the final frame. -->
+  <video class="hero__video" id="heroVideo" autoplay muted playsinline preload="metadata"
+         poster="assets/video/hero_truck_poster.jpg" aria-hidden="true" tabindex="-1">
+    <source src="assets/video/hero_truck.mp4" type="video/mp4">
+  </video>
   <div class="hero__photo" aria-hidden="true"></div>
   <div class="hero__scrim" aria-hidden="true"></div>
 
@@ -660,7 +667,7 @@
   Call now, day or night
 </a>
 
-<script defer src="vendor/lenis.min.js?v=24"></script>
-<script src="js/main.js?v=24" defer></script>
+<script defer src="vendor/lenis.min.js?v=25"></script>
+<script src="js/main.js?v=25" defer></script>
 </body>
 </html>

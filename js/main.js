@@ -132,6 +132,37 @@
     if (reduced0) { draw(); } else { setTimeout(draw, 900); }
   })();
 
+  /* ---- HERO VIDEO: the truck waking up. One shot, no loop, holds the last frame. ---- */
+  (function () {
+    var hero = document.querySelector(".hero");
+    var vid = document.getElementById("heroVideo");
+    if (!hero || !vid) return;
+
+    // Respect the visitor's data and motion settings. A tradie on a work site is the
+    // exact person who should not be served a megabyte of video he did not ask for.
+    var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    var saveData = !!(conn && (conn.saveData || /^([23]g|slow-2g)$/.test(conn.effectiveType || "")));
+    if (reduced0 || saveData) { vid.removeAttribute("autoplay"); vid.remove(); return; }
+
+    var cued = false;
+    function cue() {
+      if (cued) return; cued = true;
+      window.dispatchEvent(new CustomEvent("emtr:herocue"));
+    }
+    // the headlights hit about 1.4s into the trimmed clip; land the headline on that beat
+    vid.addEventListener("timeupdate", function () { if (vid.currentTime >= 1.35) cue(); });
+    vid.addEventListener("ended", cue);
+
+    vid.play().then(function () {
+      hero.classList.add("video-on");
+    }).catch(function () {
+      // autoplay refused (some mobile power-saving modes): fall back to the photo hero
+      vid.remove();
+      cue();
+    });
+    setTimeout(cue, 3200);   // never let a stalled video hold the headline hostage
+  })();
+
   /* ---- coverage map (Leaflet) — lazy-init when it scrolls into view ---- */
   (function () {
     var el = document.getElementById("emtr-map");
@@ -141,7 +172,7 @@
       if (built) return; built = true;
       var center = [-33.85, 150.90]; // Western Sydney
       var map = window.L.map(el, {
-        center: center, zoom: 9,
+        center: center, zoom: 9,   // initial view required before layers can be added; fit() corrects it
         scrollWheelZoom: false, dragging: false, touchZoom: false,
         doubleClickZoom: false, boxZoom: false, keyboard: false,
         zoomControl: false, attributionControl: true
@@ -149,9 +180,22 @@
       window.L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
         maxZoom: 19, attribution: "&copy; OpenStreetMap, &copy; CARTO"
       }).addTo(map);
-      window.L.circle(center, { radius: 60000, color: "#3a8bff", weight: 1.5, opacity: 0.85, fillColor: "#2f7dff", fillOpacity: 0.12 }).addTo(map);
+      var ring = window.L.circle(center, { radius: 60000, color: "#3a8bff", weight: 1.5, opacity: 0.85, fillColor: "#2f7dff", fillOpacity: 0.12 }).addTo(map);
       window.L.circleMarker(center, { radius: 7, color: "#bcd6ff", weight: 2, fillColor: "#2f7dff", fillOpacity: 1 }).addTo(map);
-      setTimeout(function () { map.invalidateSize(); }, 300);
+
+      // Fit the viewport to the SERVICE RADIUS rather than a fixed zoom. A hardcoded
+      // zoom 9 fits a wide desktop panel but crops the whole ring off a ~353px phone,
+      // which left the coverage map showing a dot and no coverage.
+      function fit() {
+        map.invalidateSize();
+        map.fitBounds(ring.getBounds(), { padding: [10, 10], animate: false });
+      }
+      // attribution to the top-right: bottom-left/right is where the coverage label sits,
+      // and on a phone the two were colliding.
+      if (map.attributionControl) map.attributionControl.setPosition("topright");
+      setTimeout(fit, 300);
+      var rt;
+      window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(fit, 200); }, { passive: true });
     }
     if ("IntersectionObserver" in window) {
       var io = new IntersectionObserver(function (es) {
@@ -184,8 +228,15 @@
     if (reduced0) { hh.classList.add("shown"); return; }
     var shown = false;
     function show() { if (shown) return; shown = true; hh.classList.add("shown"); }
-    window.addEventListener("emtr:preloaded", function () { setTimeout(show, 120); });
-    setTimeout(show, 1500); // fallback only if the event never fires
+    // when the hero video is running, land the headline on the moment the lights come on
+    var hasVideo = !!document.getElementById("heroVideo");
+    window.addEventListener("emtr:herocue", show);
+    if (!hasVideo) {
+      window.addEventListener("emtr:preloaded", function () { setTimeout(show, 120); });
+      setTimeout(show, 1500);
+    } else {
+      setTimeout(show, 4000); // hard fallback only
+    }
   })();
 
   /* ---- year ---- */

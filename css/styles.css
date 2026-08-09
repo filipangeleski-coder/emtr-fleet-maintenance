@@ -690,3 +690,41 @@ body.page .site-header { position: sticky; }
 .job__more { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1rem; font-size: 0.9rem; font-weight: 600; color: var(--blue-bright); transition: gap .3s var(--ease); }
 .job__more:hover { gap: 0.85rem; }
 .job__more .arrow { transition: transform .4s var(--ease); }
+
+/* Leaflet attribution: was overflowing the framed map on phones. Constrain it. */
+.coverage-map .leaflet-control-attribution {
+  background: oklch(0.17 0.022 68 / 0.72) !important;
+  color: var(--faint) !important;
+  font-size: 0.58rem !important;
+  padding: 2px 6px !important;
+  max-width: 100%;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.coverage-map .leaflet-control-attribution a { color: var(--steel) !important; }
+
+/* ====================================================================
+   HERO VIDEO (S966) — the truck waking up.
+   One-shot, never loops, holds on the final lit frame. The photo layer
+   underneath stays as the fallback for reduced-motion, save-data and any
+   browser that will not autoplay.
+   ==================================================================== */
+.hero__video {
+  position: absolute; inset: 0; z-index: 0;
+  width: 100%; height: 100%; object-fit: cover; object-position: center 62%;
+  filter: contrast(1.06) brightness(1.02) saturate(1.0);
+  opacity: 0; transition: opacity 1.1s var(--ease);
+  pointer-events: none;
+}
+.hero.video-on .hero__video { opacity: 1; }
+.hero.video-on .hero__photo { opacity: 0; transition: opacity 1.1s var(--ease); }
+
+/* the video is already dark, so soften the scrim that was tuned for a bright photo */
+.hero.video-on .hero__scrim { opacity: 0.58; }
+
+/* portrait source on a landscape screen crops hard; frame the grille, not the mirror */
+@media (min-width: 768px) { .hero__video { object-position: center 60%; } }
+@media (max-width: 767px) { .hero__video { object-position: center 50%; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__video { display: none; }
+}
