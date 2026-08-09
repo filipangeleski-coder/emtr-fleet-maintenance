@@ -24,7 +24,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
 <script>document.documentElement.classList.add('js');</script>
-<link rel="stylesheet" href="css/styles.css?v=25">
+<link rel="stylesheet" href="css/styles.css?v=26">
 
 <!-- LocalBusiness / AutoRepair structured data. No aggregateRating until real reviews exist. -->
 <script type="application/ld+json">
@@ -73,8 +73,8 @@
 
 <!-- Leaflet (real coverage map). Self-hosted, not unpkg: an unpinned third-party CDN script is
      the one live supply-chain vector on a static site (cf. polyfill.io, 100k+ sites, 2024). -->
-<link rel="stylesheet" href="vendor/leaflet/leaflet.css?v=25">
-<script defer src="vendor/leaflet/leaflet.js?v=25"></script>
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css?v=26">
+<script defer src="vendor/leaflet/leaflet.js?v=26"></script>
 </head>
 
 <body>
@@ -138,8 +138,12 @@
 <section class="hero" id="hero">
   <!-- PLACEHOLDER FOOTAGE: EMTR's own Instagram post of the Metro Tipper Hire Kenworth
        (8 Dec 2021). Carries a TikTok watermark. Swap for the original file when Jono
-       sends it. One-shot, never loops, holds on the final frame. -->
-  <video class="hero__video" id="heroVideo" autoplay muted playsinline preload="metadata"
+       sends it.
+       LOOPS the full arc: sits dark in the shed, lights blaze on at ~1s, rolls past and
+       out of frame, cycles back to dark. It loops rather than holding a final frame
+       because the last frame is another company's trailer branding, which is a poor
+       thing to rest on. Both ends are dark so the seam hides. -->
+  <video class="hero__video" id="heroVideo" autoplay muted loop playsinline preload="metadata"
          poster="assets/video/hero_truck_poster.jpg" aria-hidden="true" tabindex="-1">
     <source src="assets/video/hero_truck.mp4" type="video/mp4">
   </video>
@@ -667,7 +671,7 @@
   Call now, day or night
 </a>
 
-<script defer src="vendor/lenis.min.js?v=25"></script>
-<script src="js/main.js?v=25" defer></script>
+<script defer src="vendor/lenis.min.js?v=26"></script>
+<script src="js/main.js?v=26" defer></script>
 </body>
 </html>

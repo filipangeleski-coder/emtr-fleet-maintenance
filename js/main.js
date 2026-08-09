@@ -149,9 +149,9 @@
       if (cued) return; cued = true;
       window.dispatchEvent(new CustomEvent("emtr:herocue"));
     }
-    // the headlights hit about 1.4s into the trimmed clip; land the headline on that beat
-    vid.addEventListener("timeupdate", function () { if (vid.currentTime >= 1.35) cue(); });
-    vid.addEventListener("ended", cue);
+    // the headlights hit about 1s into the clip; land the headline on that beat.
+    // fires once only (cued flag) so a looping video does not re-trigger it every cycle.
+    vid.addEventListener("timeupdate", function () { if (vid.currentTime >= 0.85) cue(); });
 
     vid.play().then(function () {
       hero.classList.add("video-on");
