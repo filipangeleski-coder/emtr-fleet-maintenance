@@ -1,0 +1,3 @@
+system-commandline-sentinel-files/
+*.md
+!README.md
