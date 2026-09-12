@@ -158,7 +158,7 @@
       window.dispatchEvent(new CustomEvent("emtr:herocue"));
     }
     // the lights come on about 3s into the clip; the headline lands just ahead of that beat.
-    vid.addEventListener("timeupdate", function () { if (vid.currentTime >= 2.4) cue(); });
+    vid.addEventListener("timeupdate", function () { if (vid.currentTime >= 2.6) cue(); });
 
     vid.play().then(function () {
       hero.classList.add("video-on");

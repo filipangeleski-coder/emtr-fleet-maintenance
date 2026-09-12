@@ -730,7 +730,11 @@ body.page .site-header { position: sticky; }
 
 /* portrait source on a landscape screen crops hard; frame the grille, not the mirror */
 /* desktop: push the trucks right of the headline column; phone: the portrait clip frames them mid-height */
-@media (min-width: 768px) { .hero__video { object-position: 60% 58%; } }
+/* the clip is a locked camera (so the real number plates can be pasted over every frame); the push-in is CSS */
+@keyframes hero-push { from { transform: scale(1.0); } to { transform: scale(1.09); } }
+@media (min-width: 768px) { .hero__video { object-position: 60% 58%; } }  /* the desktop clip creeps in about 20% on its own; no CSS push */
+/* phones: the portrait clip already creeps in about 9% on its own, so no CSS push there */
+@media (prefers-reduced-motion: reduce) { .hero.video-on .hero__video { animation: none; } }
 @media (max-width: 767px) { .hero__video { object-position: center 45%; } }
 
 @media (prefers-reduced-motion: reduce) {
