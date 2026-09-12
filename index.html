@@ -24,7 +24,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
 <script>document.documentElement.classList.add('js');</script>
-<link rel="stylesheet" href="css/styles.css?v=26">
+<link rel="stylesheet" href="css/styles.css?v=27">
 
 <!-- LocalBusiness / AutoRepair structured data. No aggregateRating until real reviews exist. -->
 <script type="application/ld+json">
@@ -60,8 +60,7 @@
       { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Arrow Board Service & Repair" } },
       { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Trailer Repairs & Brake Upgrades" } },
       { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Heavy Equipment Welding & Custom Fabrication" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pre-Purchase Inspections" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Parts Supply & Installation" } }
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pre-Purchase Inspections" } }
     ]
   },
   "sameAs": [
@@ -73,8 +72,8 @@
 
 <!-- Leaflet (real coverage map). Self-hosted, not unpkg: an unpinned third-party CDN script is
      the one live supply-chain vector on a static site (cf. polyfill.io, 100k+ sites, 2024). -->
-<link rel="stylesheet" href="vendor/leaflet/leaflet.css?v=26">
-<script defer src="vendor/leaflet/leaflet.js?v=26"></script>
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css?v=27">
+<script defer src="vendor/leaflet/leaflet.js?v=27"></script>
 </head>
 
 <body>
@@ -136,16 +135,16 @@
 
 <!-- ============ HERO — real on-site photo + the callout route ============ -->
 <section class="hero" id="hero">
-  <!-- PLACEHOLDER FOOTAGE: EMTR's own Instagram post of the Metro Tipper Hire Kenworth
-       (8 Dec 2021). Carries a TikTok watermark. Swap for the original file when Jono
-       sends it.
-       LOOPS the full arc: sits dark in the shed, lights blaze on at ~1s, rolls past and
-       out of frame, cycles back to dark. It loops rather than holding a final frame
-       because the last frame is another company's trailer branding, which is a poor
-       thing to rest on. Both ends are dark so the seam hides. -->
-  <video class="hero__video" id="heroVideo" autoplay muted loop playsinline preload="metadata"
-         poster="assets/video/hero_truck_poster.jpg" aria-hidden="true" tabindex="-1">
-    <source src="assets/video/hero_truck.mp4" type="video/mp4">
+  <!-- HERO FOOTAGE (S1141): EMTR's own service trucks at the yard at dusk, made from Jono's
+       photo (Higgsfield outpaint to widescreen, Kling image-to-video, 5 s). One shot: the
+       trucks sit dark, the lights come on at about two seconds, and it holds on the lit frame.
+       No loop, nothing to hide. Landscape clip on desktop, portrait clip on phones (main.js
+       swaps the source before play). The Metro Tipper Hire placeholder is gone: it was
+       another company's truck and livery. -->
+  <video class="hero__video" id="heroVideo" autoplay muted playsinline preload="metadata"
+         poster="assets/photos/fleet_dusk_wide.jpg" aria-hidden="true" tabindex="-1"
+         data-src-tall="assets/video/hero_fleet_tall.mp4" data-poster-tall="assets/photos/fleet_dusk_tall.jpg">
+    <source src="assets/video/hero_fleet_wide.mp4" type="video/mp4">
   </video>
   <div class="hero__photo" aria-hidden="true"></div>
   <div class="hero__scrim" aria-hidden="true"></div>
@@ -243,7 +242,7 @@
       <ul class="checklist">
         <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Sydney metro, Western Sydney and greater NSW</li>
         <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Depots, work sites, quarries and roadside</li>
-        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> After hours, weekends and public holidays</li>
+        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> After hours and weekends</li>
       </ul>
       <a href="#contact" class="btn btn--primary" style="margin-top:1.8rem">Check we cover you <span class="arrow">&rarr;</span></a>
     </div>
@@ -268,7 +267,7 @@
       <details class="job job--feature reveal" open>
         <summary><span class="job__ref mono">01</span><span class="job__name">24/7 Breakdown Assistance</span><span class="job__tag mono">Call now</span></summary>
         <div class="job__body">
-          <p>Broken down? One call, we roll. Day or night, weekends, public holidays. We get to you fast and get you back working.</p>
+          <p>Broken down? One call, we roll. Day or night, weekday or weekend. We get to you fast and get you back working.</p>
           <a href="tel:0451073733" class="btn btn--primary" data-rev>Call 0451 073 733</a>
         <a class="job__more" href="services/24-7-breakdown-assistance.html">Full detail <span class="arrow">&rarr;</span></a></div>
       </details>
@@ -304,8 +303,8 @@
         <div class="job__body"><p>Heavy equipment welding and custom fabrication on site.</p><a class="job__more" href="services/welding-and-fabrication.html">Full detail <span class="arrow">&rarr;</span></a></div>
       </details>
       <details class="job reveal">
-        <summary><span class="job__ref mono">09</span><span class="job__name">Pre-Purchase Inspections &amp; Parts</span><span class="job__tag mono">Inspection</span></summary>
-        <div class="job__body"><p>Know what you are buying before you buy it. Quality parts sourced and fitted, job finished in one visit.</p><a class="job__more" href="services/pre-purchase-inspections-and-parts.html">Full detail <span class="arrow">&rarr;</span></a></div>
+        <summary><span class="job__ref mono">09</span><span class="job__name">Pre-Purchase Inspections</span><span class="job__tag mono">Inspection</span></summary>
+        <div class="job__body"><p>Know what you are buying before you buy it. An independent look over the machine at the seller's yard, and a straight answer on whether it is worth it.</p><a class="job__more" href="services/pre-purchase-inspections.html">Full detail <span class="arrow">&rarr;</span></a></div>
       </details>
     </div>
   </div>
@@ -332,7 +331,7 @@
 
 <!-- ============ CINEMATIC IMAGE BAND ============ -->
 <section class="imageband">
-  <div class="imageband__bg" style="background-image:url('assets/photos/onsite_a_service.jpg')"></div>
+  <div class="imageband__bg" style="background-image:url('assets/photos/cat966m_shed.jpg')"></div>
   <div class="imageband__inner reveal">
     <span class="eyebrow">Downtime is the enemy</span>
     <h2>Every hour it sits is money lost.</h2>
@@ -408,7 +407,7 @@
 <section class="section" id="about">
   <div class="wrap split">
     <div class="split__media bracket-frame reveal">
-      <img src="assets/photos/cat966.jpg" alt="EMTR servicing a CAT 966M wheel loader on site" loading="lazy">
+      <img src="assets/photos/fleet_dusk.jpg" alt="EMTR service trucks lined up at the yard at dusk, Western Sydney" loading="lazy">
     </div>
     <div class="reveal" data-d="1">
       <span class="eyebrow">About EMTR</span>
@@ -449,38 +448,13 @@
       <figure><img src="assets/photos/keep_moving.jpg" alt="Truck and articulated hauler serviced on site" loading="lazy"><figcaption><span class="mono">Western Sydney</span>Fleet servicing, trucks and earthmoving</figcaption></figure>
       <figure><img src="assets/photos/onsite_a_service.jpg" alt="On-site A-service on a prime mover" loading="lazy"><figcaption><span class="mono">On site</span>On-site A-service, back on the road</figcaption></figure>
       <figure><img src="assets/photos/whyte_civil.jpg" alt="On-site breakdown repair next to an excavator" loading="lazy"><figcaption><span class="mono">Roadside</span>Breakdown sorted on site, within the hour</figcaption></figure>
-      <figure><img src="assets/photos/hydraulic.jpg" alt="Hydraulic and hose repair detail" loading="lazy"><figcaption><span class="mono">On site</span>Hydraulic and hose repairs</figcaption></figure>
+      <figure class="gallery__clip"><video muted loop playsinline preload="none" poster="assets/photos/on_the_tools_poster.jpg" aria-label="EMTR mechanic working on a cab-over prime mover with the cab tilted, on site"><source src="assets/video/on_the_tools.mp4" type="video/mp4"></video><figcaption><span class="mono">On site</span>Cab up, on the tools</figcaption></figure>
+      <figure><img src="assets/photos/cat966m_shed.jpg" alt="CAT 966M wheel loader parked under a shed on site" loading="lazy"><figcaption><span class="mono">Machinery</span>CAT 966M wheel loader, on site</figcaption></figure>
       <figure><img src="assets/photos/dozer_d6t.jpg" alt="CAT D6T dozer serviced on site in Western Sydney" loading="lazy"><figcaption><span class="mono">Western Sydney</span>CAT D6T dozer, alternator and belts on site</figcaption></figure>
       <figure><img src="assets/photos/turntable.jpg" alt="Turntable installation on a prime mover" loading="lazy"><figcaption><span class="mono">Prime mover</span>Turntable install on a prime mover</figcaption></figure>
       <figure><img src="assets/photos/welding.jpg" alt="Mobile heavy equipment welding" loading="lazy"><figcaption><span class="mono">On site</span>Mobile heavy-equipment welding</figcaption></figure>
       <figure><img src="assets/photos/trailer_brakes.jpg" alt="Trailer brake upgrade" loading="lazy"><figcaption><span class="mono">Compliance</span>Trailer brake upgrade</figcaption></figure>
-    </div>
-  </div>
-</section>
-
-<!-- ============ PROOF / TESTIMONIALS ============ -->
-<section class="section section--tight">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">From the people who run on us</span>
-      <h2>Trusted by operators across NSW.</h2>
-    </div>
-    <div class="logbook">
-      <figure class="logrow reveal">
-        <span class="logrow__ref mono">Western Sydney</span>
-        <blockquote>Truck went down on a job and EMTR had it sorted within the hour. Back working the same day.</blockquote>
-        <figcaption class="mono">Civil contractor</figcaption>
-      </figure>
-      <figure class="logrow reveal" data-d="1">
-        <span class="logrow__ref mono">NSW</span>
-        <blockquote>Professional, knowledgeable and the follow-up was spot on. Rare to find a mechanic you actually trust.</blockquote>
-        <figcaption class="mono">Fleet client</figcaption>
-      </figure>
-      <figure class="logrow reveal" data-d="2">
-        <span class="logrow__ref mono">Greater Sydney</span>
-        <blockquote>They have looked after our fleet for over a year. On site, on time, no blowouts.</blockquote>
-        <figcaption class="mono">Transport operator</figcaption>
-      </figure>
+      <figure><img src="assets/photos/hydraulic.jpg" alt="Hydraulic and hose repair detail" loading="lazy"><figcaption><span class="mono">On site</span>Hydraulic and hose repairs</figcaption></figure>
     </div>
   </div>
 </section>
@@ -503,7 +477,7 @@
       </details>
       <details class="faq__item">
         <summary>Are you available after hours and on weekends?</summary>
-        <div class="faq__body"><p>We run 24/7 for breakdowns, including weekends and public holidays. Scheduled work booked outside business hours carries no after-hours charge.</p></div>
+        <div class="faq__body"><p>We run 24/7 for breakdowns, weekends included. Scheduled work booked outside business hours carries no after-hours charge.</p></div>
       </details>
       <details class="faq__item">
         <summary>Will servicing with you affect my manufacturer warranty?</summary>
@@ -530,7 +504,7 @@
   <div class="wrap">
     <div class="cta-band reveal" style="margin-bottom:clamp(2.5rem,5vw,4rem)">
       <h2>Broken down? Call now, we roll.</h2>
-      <p>Day or night, weekends, public holidays. One call and a fully equipped mobile mechanic is on the way.</p>
+      <p>Day or night, any day of the week. One call and a fully equipped mobile mechanic is on the way.</p>
       <div class="actions">
         <a href="tel:0451073733" class="btn btn--primary btn--lg" data-rev>Call 0451 073 733</a>
         <a href="#enquiry" class="btn btn--ghost btn--lg">Send an enquiry</a>
@@ -561,8 +535,10 @@
       <!-- Netlify Forms ready: on deploy to Netlify this emails info@emtr.com.au with zero backend.
            Locally / before deploy, main.js falls back to opening the user's email app. -->
       <form class="form reveal" data-d="1" id="enquiryForm" name="enquiry" method="POST"
-            data-netlify="true" netlify-honeypot="bot-field" action="/thanks">
-        <input type="hidden" name="form-name" value="enquiry">
+            action="https://formsubmit.co/info@emtr.com.au">
+        <input type="hidden" name="_next" value="https://filipangeleski-coder.github.io/emtr-fleet-maintenance/thanks.html">
+        <input type="hidden" name="_subject" value="Website enquiry, emtr.com.au">
+        <input type="hidden" name="_template" value="table">
         <p style="display:none"><label>Don't fill this out: <input name="bot-field"></label></p>
         <div class="field--row">
           <div class="field">
@@ -671,7 +647,7 @@
   Call now, day or night
 </a>
 
-<script defer src="vendor/lenis.min.js?v=26"></script>
-<script src="js/main.js?v=26" defer></script>
+<script defer src="vendor/lenis.min.js?v=27"></script>
+<script src="js/main.js?v=27" defer></script>
 </body>
 </html>

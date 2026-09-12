@@ -138,6 +138,13 @@
     var vid = document.getElementById("heroVideo");
     if (!hero || !vid) return;
 
+    // phones get the portrait clip (cover-cropping the landscape one leaves a sliver of truck)
+    var tallScreen = !!(window.matchMedia && window.matchMedia("(max-width: 767px)").matches);
+    if (tallScreen && vid.dataset.srcTall) {
+      if (vid.dataset.posterTall) vid.poster = vid.dataset.posterTall;
+      vid.src = vid.dataset.srcTall;
+    }
+
     // Respect the visitor's data and motion settings. A tradie on a work site is the
     // exact person who should not be served a megabyte of video he did not ask for.
     var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
@@ -149,9 +156,8 @@
       if (cued) return; cued = true;
       window.dispatchEvent(new CustomEvent("emtr:herocue"));
     }
-    // the headlights hit about 1s into the clip; land the headline on that beat.
-    // fires once only (cued flag) so a looping video does not re-trigger it every cycle.
-    vid.addEventListener("timeupdate", function () { if (vid.currentTime >= 0.85) cue(); });
+    // the lights come on about 3s into the clip; the headline lands just ahead of that beat.
+    vid.addEventListener("timeupdate", function () { if (vid.currentTime >= 2.4) cue(); });
 
     vid.play().then(function () {
       hero.classList.add("video-on");
@@ -160,7 +166,7 @@
       vid.remove();
       cue();
     });
-    setTimeout(cue, 3200);   // never let a stalled video hold the headline hostage
+    setTimeout(cue, 4200);   // never let a stalled video hold the headline hostage
   })();
 
   /* ---- coverage map (Leaflet) — lazy-init when it scrolls into view ---- */
@@ -309,7 +315,7 @@
     });
   });
 
-  /* ---- enquiry form: Netlify Forms when deployed, mailto fallback otherwise ---- */
+  /* ---- enquiry form: FormSubmit AJAX when deployed, mailto fallback otherwise ---- */
   var form = document.getElementById("enquiryForm");
   var status = document.getElementById("formStatus");
   if (form) {
@@ -349,16 +355,28 @@
 
       if (isLocal) { mailtoFallback(); return; }
 
-      var encoded = Object.keys(data).map(function (k) {
-        return encodeURIComponent(k) + "=" + encodeURIComponent(data[k]);
-      }).join("&");
+      if (data["bot-field"]) { form.reset(); setStatus("Thanks, we've got it.", "ok"); return; } // honeypot
 
-      fetch("/", {
+      // FormSubmit (formsubmit.co): free, no account, delivers to info@emtr.com.au. The FIRST
+      // submission ever triggers a one-time activation email to that inbox; until it is
+      // clicked the service answers success:false and we fall back to the mail app.
+      var payload = {
+        name: data.name || "", phone: data.phone || "", email: data.email || "", urgency: data.urgency || "",
+        vehicle: data.vehicle || "", location: data.location || "", message: data.message || "",
+        _subject: "Website enquiry - " + (data.urgency || "") + " - " + (data.name || ""),
+        _template: "table",
+        _replyto: data.email || ""
+      };
+      fetch("https://formsubmit.co/ajax/info@emtr.com.au", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encoded
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(payload)
       }).then(function (res) {
-        if (res.ok) {
+        return res.json().then(function (out) {
+          return res.ok && out && (out.success === true || out.success === "true");
+        });
+      }).then(function (ok) {
+        if (ok) {
           form.reset();
           setStatus("Thanks, we've got it. We'll be in touch shortly. For breakdowns, call 0451 073 733.", "ok");
         } else {
@@ -393,6 +411,17 @@
   } else {
     counters.forEach(animateCount);
   }
+
+  /* ---- gallery clip: plays only while on screen, never under reduced motion ---- */
+  document.querySelectorAll(".gallery video").forEach(function (v) {
+    if (reduced0) return;
+    if (!("IntersectionObserver" in window)) { v.play().catch(function () {}); return; }
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { v.play().catch(function () {}); } else { v.pause(); }
+      });
+    }, { threshold: 0.25 }).observe(v);
+  });
 
   /* ---- gallery lightbox ---- */
   var lb = document.getElementById("lightbox");
