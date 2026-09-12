@@ -157,8 +157,8 @@
       if (cued) return; cued = true;
       window.dispatchEvent(new CustomEvent("emtr:herocue"));
     }
-    // the lights come on about 3s into the clip; the headline lands just ahead of that beat.
-    vid.addEventListener("timeupdate", function () { if (vid.currentTime >= 2.6) cue(); });
+    // the lights come on about 2.3s into the clip; the headline lands just ahead of that beat.
+    vid.addEventListener("timeupdate", function () { if (vid.currentTime >= 2.0) cue(); });
 
     vid.play().then(function () {
       hero.classList.add("video-on");
