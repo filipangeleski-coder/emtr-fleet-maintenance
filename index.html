@@ -23,8 +23,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
-<script>document.documentElement.classList.add('js');</script>
-<link rel="stylesheet" href="css/styles.css?v=27">
+<script>document.documentElement.classList.add('js');(function(){try{var m=/[?&]theme=(deep|warm)/.exec(location.search);var t=m?m[1]:localStorage.getItem('emtr-theme');if(m)localStorage.setItem('emtr-theme',t);if(t==='deep')document.documentElement.setAttribute('data-theme','deep');}catch(e){}})();</script>
+<link rel="stylesheet" href="css/styles.css?v=28">
 
 <!-- LocalBusiness / AutoRepair structured data. No aggregateRating until real reviews exist. -->
 <script type="application/ld+json">
@@ -72,8 +72,8 @@
 
 <!-- Leaflet (real coverage map). Self-hosted, not unpkg: an unpinned third-party CDN script is
      the one live supply-chain vector on a static site (cf. polyfill.io, 100k+ sites, 2024). -->
-<link rel="stylesheet" href="vendor/leaflet/leaflet.css?v=27">
-<script defer src="vendor/leaflet/leaflet.js?v=27"></script>
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css?v=28">
+<script defer src="vendor/leaflet/leaflet.js?v=28"></script>
 </head>
 
 <body>
@@ -133,6 +133,7 @@
 
 <main id="top">
 
+<!-- de-vibe S1141: route overlay, brackets, fault line, scroll cue, ticker, numbered eyebrows, pill tags and the stats strip removed; Fleet Care + FAQ two-column; theme switch ?theme=deep -->
 <!-- ============ HERO — real on-site photo + the callout route ============ -->
 <section class="hero" id="hero">
   <!-- HERO FOOTAGE (S1141): EMTR's own service trucks at the yard at dusk, made from Jono's
@@ -149,25 +150,7 @@
   <div class="hero__photo" aria-hidden="true"></div>
   <div class="hero__scrim" aria-hidden="true"></div>
 
-  <!-- cartographic route overlay: base (lower-left) to breakdown pin (upper-right). Illustration, not a live trace. -->
-  <svg class="hero__route" viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
-    <circle class="route__radius" cx="566" cy="470" r="150"></circle>
-    <path class="route__line" d="M566,470 C 606,446 620,400 634,356 S 660,250 662,212"></path>
-    <g class="route__base" transform="translate(566,470)">
-      <circle r="9"></circle><circle class="route__base-ring" r="9"></circle>
-    </g>
-    <g class="route__pin" transform="translate(662,190)">
-      <circle class="route__ping" r="10"></circle>
-      <path class="route__pinmark" d="M0,-22 C 12,-22 20,-13 20,-2 C 20,12 0,24 0,24 C 0,24 -20,12 -20,-2 C -20,-13 -12,-22 0,-22 Z"></path>
-      <circle class="route__pindot" cy="-2" r="6"></circle>
-    </g>
-    <text class="route__eta mono" x="646" y="150" text-anchor="end">ETA on the spot</text>
-  </svg>
 
-  <span class="bracket bracket--tl" aria-hidden="true"></span>
-  <span class="bracket bracket--tr" aria-hidden="true"></span>
-  <span class="bracket bracket--bl" aria-hidden="true"></span>
-  <span class="bracket bracket--br" aria-hidden="true"></span>
 
   <div class="wrap hero__inner">
     <div class="hero__content">
@@ -175,11 +158,6 @@
       <span class="hero__eyebrow mono reveal">Western Sydney &middot; Fleet maintenance specialists &middot; 24/7</span>
       <h1 class="hero-h1" data-d="1">When it stops,<br><span class="hl">we start rolling.</span></h1>
       <p class="hero__sub reveal" data-d="2">Fully mobile diesel mechanics across Sydney and greater NSW. We bring the workshop to your depot, site or the roadside. No tow, no truck off the road for a week.</p>
-
-      <div class="hero__diag reveal" data-d="3" aria-hidden="true">
-        <span class="hero__diag-label mono">A typical callout</span>
-        <span class="diag mono" id="diagLine" data-fault="Unit down" data-cleared="Back earning">Unit down</span>
-      </div>
 
       <div class="hero__actions reveal" data-d="4">
         <a href="tel:0451073733" class="btn btn--primary btn--lg" data-rev>
@@ -193,44 +171,13 @@
     </div>
   </div>
 
-  <div class="hero__scrollcue mono" aria-hidden="true"><span>Scroll</span><span class="bar"></span></div>
 </section>
-
-<!-- ============ MARQUEE ============ -->
-<div class="marquee" aria-hidden="true">
-  <div class="marquee__track" id="marquee">
-    <span class="marquee__item mono"><span class="dot"></span> KENWORTH</span>
-    <span class="marquee__item mono"><span class="dot"></span> FREIGHTLINER</span>
-    <span class="marquee__item mono"><span class="dot"></span> MERCEDES</span>
-    <span class="marquee__item mono"><span class="dot"></span> VOLVO</span>
-    <span class="marquee__item mono"><span class="dot"></span> SCANIA</span>
-    <span class="marquee__item mono"><span class="dot"></span> MAN</span>
-    <span class="marquee__item mono"><span class="dot"></span> DAF</span>
-    <span class="marquee__item mono"><span class="dot"></span> MACK</span>
-    <span class="marquee__item mono"><span class="dot"></span> PACCAR</span>
-    <span class="marquee__item mono"><span class="dot"></span> ISUZU</span>
-    <span class="marquee__item mono"><span class="dot"></span> HINO</span>
-    <span class="marquee__item mono"><span class="dot"></span> FUSO</span>
-    <span class="marquee__item mono"><span class="dot"></span> CUMMINS</span>
-    <span class="marquee__item mono"><span class="dot"></span> CAT</span>
-    <span class="marquee__item mono"><span class="dot"></span> DETROIT</span>
-    <span class="marquee__item mono"><span class="dot"></span> KOMATSU</span>
-    <span class="marquee__item mono"><span class="dot"></span> HITACHI</span>
-    <span class="marquee__item mono"><span class="dot"></span> KOBELCO</span>
-    <span class="marquee__item mono"><span class="dot"></span> CASE</span>
-    <span class="marquee__item mono"><span class="dot"></span> JOHN DEERE</span>
-    <span class="marquee__item mono"><span class="dot"></span> JCB</span>
-    <span class="marquee__item mono"><span class="dot"></span> BOBCAT</span>
-    <span class="marquee__item mono"><span class="dot"></span> KUBOTA</span>
-    <span class="marquee__item mono"><span class="dot"></span> YANMAR</span>
-  </div>
-</div>
 
 <!-- ============ COVERAGE (01) ============ -->
 <section class="section" id="coverage">
   <div class="wrap split">
     <div class="reveal">
-      <span class="eyebrow"><span class="idx mono">01</span> We come to you</span>
+      <span class="eyebrow">We come to you</span>
       <h2>Your yard. Your site. The roadside. Wherever it stops, we start.</h2>
       <p>You do not bring the truck to us. We bring a fully equipped mobile workshop to you, anywhere across Sydney and NSW. Less downtime, no tow truck, your gear back to earning faster.</p>
       <div class="docket mono" aria-hidden="true">
@@ -247,7 +194,7 @@
       <a href="#contact" class="btn btn--primary" style="margin-top:1.8rem">Check we cover you <span class="arrow">&rarr;</span></a>
     </div>
     <div class="reveal" data-d="2">
-      <div class="coverage-map bracket-frame">
+      <div class="coverage-map">
         <div id="emtr-map" class="coverage-map__leaflet" aria-label="EMTR service area map of Sydney and NSW"></div>
         <div class="coverage-map__label mono">Western Sydney<br><strong>~60 km radius + regional callouts</strong></div>
       </div>
@@ -259,51 +206,51 @@
 <section class="section" id="services">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow"><span class="idx mono">02</span> What we do</span>
+      <span class="eyebrow">What we do</span>
       <h2>One mobile crew for your whole fleet.</h2>
       <p>Trucks, trailers, earthmoving and machinery. If it runs on diesel, we keep it running. Tap any line for detail, or <a href="services/index.html" style="color:var(--blue-bright)">see every service in full</a>.</p>
     </div>
     <div class="joblist">
       <details class="job job--feature reveal" open>
-        <summary><span class="job__ref mono">01</span><span class="job__name">24/7 Breakdown Assistance</span><span class="job__tag mono">Call now</span></summary>
+        <summary><span class="job__ref mono">01</span><span class="job__name">24/7 Breakdown Assistance</span></summary>
         <div class="job__body">
           <p>Broken down? One call, we roll. Day or night, weekday or weekend. We get to you fast and get you back working.</p>
           <a href="tel:0451073733" class="btn btn--primary" data-rev>Call 0451 073 733</a>
         <a class="job__more" href="services/24-7-breakdown-assistance.html">Full detail <span class="arrow">&rarr;</span></a></div>
       </details>
       <details class="job reveal">
-        <summary><span class="job__ref mono">02</span><span class="job__name">Fleet Maintenance Programs</span><span class="job__tag mono">Program</span></summary>
+        <summary><span class="job__ref mono">02</span><span class="job__name">Fleet Maintenance Programs</span></summary>
         <div class="job__body">
           <p>A maintenance program built around your run, not ours. Planned servicing on your schedule, inspection-ready records every time, and no after-hours charge on scheduled work. One truck or a whole yard.</p>
           <a href="#fleetcare" class="btn btn--ghost">See EMTR Fleet Care <span class="arrow">&rarr;</span></a>
         <a class="job__more" href="services/fleet-maintenance-programs.html">Full detail <span class="arrow">&rarr;</span></a></div>
       </details>
       <details class="job reveal">
-        <summary><span class="job__ref mono">03</span><span class="job__name">On-Site Servicing</span><span class="job__tag mono">On site</span></summary>
+        <summary><span class="job__ref mono">03</span><span class="job__name">On-Site Servicing</span></summary>
         <div class="job__body"><p>Logbook and scheduled servicing at your depot or site. Detailed service logs after every job. No warranty impact.</p><a class="job__more" href="services/on-site-servicing.html">Full detail <span class="arrow">&rarr;</span></a></div>
       </details>
       <details class="job reveal">
-        <summary><span class="job__ref mono">04</span><span class="job__name">Mechanical Repairs</span><span class="job__tag mono">On site</span></summary>
+        <summary><span class="job__ref mono">04</span><span class="job__name">Mechanical Repairs</span></summary>
         <div class="job__body"><p>Engines, drivetrain, brakes and undercarriage, done on site.</p><a class="job__more" href="services/mechanical-repairs.html">Full detail <span class="arrow">&rarr;</span></a></div>
       </details>
       <details class="job reveal">
-        <summary><span class="job__ref mono">05</span><span class="job__name">Auto Electrical &amp; Diagnostics</span><span class="job__tag mono">Diagnostic</span></summary>
+        <summary><span class="job__ref mono">05</span><span class="job__name">Auto Electrical &amp; Diagnostics</span></summary>
         <div class="job__body"><p>Fault-code scanning, wiring, batteries and diagnostics. We service and repair arrow boards as well.</p><a class="job__more" href="services/auto-electrical-and-diagnostics.html">Full detail <span class="arrow">&rarr;</span></a></div>
       </details>
       <details class="job reveal">
-        <summary><span class="job__ref mono">06</span><span class="job__name">Hydraulics &amp; Hoses</span><span class="job__tag mono">On site</span></summary>
+        <summary><span class="job__ref mono">06</span><span class="job__name">Hydraulics &amp; Hoses</span></summary>
         <div class="job__body"><p>On-site hydraulic and hose repairs to keep plant moving.</p><a class="job__more" href="services/hydraulics-and-hoses.html">Full detail <span class="arrow">&rarr;</span></a></div>
       </details>
       <details class="job reveal">
-        <summary><span class="job__ref mono">07</span><span class="job__name">Trailer Repairs</span><span class="job__tag mono">Compliance</span></summary>
+        <summary><span class="job__ref mono">07</span><span class="job__name">Trailer Repairs</span></summary>
         <div class="job__body"><p>Trailer servicing, electric brake upgrades and compliance.</p><a class="job__more" href="services/trailer-repairs.html">Full detail <span class="arrow">&rarr;</span></a></div>
       </details>
       <details class="job reveal">
-        <summary><span class="job__ref mono">08</span><span class="job__name">Welding &amp; Fabrication</span><span class="job__tag mono">On site</span></summary>
+        <summary><span class="job__ref mono">08</span><span class="job__name">Welding &amp; Fabrication</span></summary>
         <div class="job__body"><p>Heavy equipment welding and custom fabrication on site.</p><a class="job__more" href="services/welding-and-fabrication.html">Full detail <span class="arrow">&rarr;</span></a></div>
       </details>
       <details class="job reveal">
-        <summary><span class="job__ref mono">09</span><span class="job__name">Pre-Purchase Inspections</span><span class="job__tag mono">Inspection</span></summary>
+        <summary><span class="job__ref mono">09</span><span class="job__name">Pre-Purchase Inspections</span></summary>
         <div class="job__body"><p>Know what you are buying before you buy it. An independent look over the machine at the seller's yard, and a straight answer on whether it is worth it.</p><a class="job__more" href="services/pre-purchase-inspections.html">Full detail <span class="arrow">&rarr;</span></a></div>
       </details>
     </div>
@@ -314,15 +261,16 @@
 <section class="section diesel" id="diesel">
   <div class="wrap split">
     <div class="reveal">
-      <span class="eyebrow"><span class="idx mono">03</span> We know diesel</span>
+      <span class="eyebrow">We know diesel</span>
       <h2>Trucks throw faults. We diagnose and fix them on site.</h2>
       <p>Second-generation diesel mechanics with airports, ports and mining pedigree. We diagnose the fault, carry the gear to fix it where it sits, and log the work properly so your warranty stays intact.</p>
       <ul class="enginefamilies mono" aria-label="Engine families we service">
         <li>Cummins</li><li>CAT</li><li>Detroit</li><li>PACCAR</li><li>Isuzu</li><li>Hino</li><li>Fuso</li>
       </ul>
+      <p class="makes">Trucks: Kenworth, Freightliner, Mercedes, Volvo, Scania, MAN, DAF, Mack, PACCAR, Isuzu, Hino, Fuso. Earthmoving and machinery: Komatsu, Hitachi, Kobelco, CASE, John Deere, JCB, Bobcat, Kubota, Yanmar.</p>
     </div>
     <div class="reveal" data-d="1">
-      <div class="diesel__photo bracket-frame">
+      <div class="diesel__photo">
         <img src="assets/photos/yanmar_service.jpg" alt="EMTR mechanic servicing a Yanmar excavator engine on site in Sydney" loading="lazy">
       </div>
     </div>
@@ -344,25 +292,19 @@
 <section class="section section--tight" id="how">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow"><span class="idx mono">04</span> How it works</span>
+      <span class="eyebrow">How it works</span>
       <h2>Three steps. Back to earning.</h2>
     </div>
     <div class="sequence">
       <div class="seq__step reveal">
-        <span class="seq__node" aria-hidden="true"></span>
-        <span class="seq__ref mono">01 &middot; Logged</span>
         <h3>Call or request a callout</h3>
         <p>Tell us the vehicle, the fault and where you are. One call, day or night.</p>
       </div>
       <div class="seq__step reveal" data-d="1">
-        <span class="seq__node" aria-hidden="true"></span>
-        <span class="seq__ref mono">02 &middot; Rolling</span>
         <h3>We come to you</h3>
         <p>A fully equipped mobile workshop rolls to your site or the roadside. No tow needed.</p>
       </div>
       <div class="seq__step reveal" data-d="2">
-        <span class="seq__node seq__node--done" aria-hidden="true"></span>
-        <span class="seq__ref mono">03 &middot; Cleared</span>
         <h3>Back working, same day</h3>
         <p>We fix it on the spot where we can, log the work, and keep your fleet moving.</p>
       </div>
@@ -372,32 +314,24 @@
 
 <!-- ============ FLEET CARE PLAN — preventative maintenance list ============ -->
 <section class="section" id="fleetcare">
-  <div class="wrap">
+  <div class="wrap split split--top">
     <div class="section-head reveal">
       <span class="eyebrow">EMTR Fleet Care</span>
       <h2>Preventative maintenance. Catch the fault before it stops the truck.</h2>
       <p>A tailored maintenance program that keeps your fleet compliant and earning. Planned servicing on your schedule, on site, after hours, with no after-hours charge on scheduled work.</p>
     </div>
-    <div class="manifest">
+    <div class="manifest reveal" data-d="1">
       <div class="manifest__row reveal">
-        <span class="manifest__ref mono">01</span>
         <span class="manifest__body"><span class="manifest__name">On the road, not in for repair</span><span class="manifest__desc">Catch faults early so trucks keep earning instead of sitting in for repair.</span></span>
-        <span class="manifest__tag mono">Planned</span>
       </div>
       <div class="manifest__row reveal">
-        <span class="manifest__ref mono">02</span>
         <span class="manifest__body"><span class="manifest__name">Inspection-ready compliance</span><span class="manifest__desc">Logbook servicing and detailed records, inspection-ready every time.</span></span>
-        <span class="manifest__tag mono">Logged</span>
       </div>
       <div class="manifest__row reveal">
-        <span class="manifest__ref mono">03</span>
         <span class="manifest__body"><span class="manifest__name">No surprise bills</span><span class="manifest__desc">Planned maintenance means fewer surprise bills and no cost blowouts.</span></span>
-        <span class="manifest__tag mono">Fixed cost</span>
       </div>
       <div class="manifest__row reveal">
-        <span class="manifest__ref mono">04</span>
         <span class="manifest__body"><span class="manifest__name">On site, around your run</span><span class="manifest__desc">Everything done on site, around your run, not the other way around.</span></span>
-        <span class="manifest__tag mono">On site</span>
       </div>
     </div>
   </div>
@@ -406,7 +340,7 @@
 <!-- ============ ABOUT ============ -->
 <section class="section" id="about">
   <div class="wrap split">
-    <div class="split__media bracket-frame reveal">
+    <div class="split__media reveal">
       <img src="assets/photos/fleet_dusk.jpg" alt="EMTR service trucks lined up at the yard at dusk, Western Sydney" loading="lazy">
     </div>
     <div class="reveal" data-d="1">
@@ -427,11 +361,6 @@
 <!-- ============ TRUST STATS ============ -->
 <section class="section section--tight">
   <div class="wrap">
-    <div class="stats">
-      <div class="stat reveal"><div class="stat__num mono"><span class="num" data-count="24">24</span><span class="u">/</span>7</div><div class="stat__label">Breakdown, day or night</div></div>
-      <div class="stat reveal" data-d="1"><div class="stat__num mono"><span class="num" data-count="15">15</span><span class="u">+</span></div><div class="stat__label">Years on the tools</div></div>
-      <div class="stat reveal" data-d="2"><div class="stat__num mono"><span class="num" data-count="2">2</span><span class="u">nd</span></div><div class="stat__label">Generation diesel mechanics</div></div>
-      <div class="stat reveal" data-d="3"><div class="stat__num mono"><span class="num" data-count="100">100</span><span class="u">%</span></div><div class="stat__label">Licensed, insured, logged</div></div>
     </div>
   </div>
 </section>
@@ -440,7 +369,7 @@
 <section class="section section--tight" id="work">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow"><span class="idx mono">05</span> Our work</span>
+      <span class="eyebrow">Our work</span>
       <h2>Real jobs. Real gear. On site.</h2>
       <p>A look at what we keep running across Sydney and NSW.</p>
     </div>
@@ -461,10 +390,11 @@
 
 <!-- ============ FAQ (06) ============ -->
 <section class="section" id="faq">
-  <div class="wrap" style="max-width:860px">
+  <div class="wrap split split--top">
     <div class="section-head reveal">
-      <span class="eyebrow"><span class="idx mono">06</span> Questions, sorted</span>
+      <span class="eyebrow">Questions, sorted</span>
       <h2>The stuff fleet managers ask first.</h2>
+      <p class="faq__call">Not covered here? Ring <a href="tel:0451073733">0451 073 733</a> and ask.</p>
     </div>
     <div class="faq reveal" data-d="1">
       <details class="faq__item">
@@ -513,7 +443,7 @@
 
     <div class="contact" id="enquiry">
       <div class="contact__info reveal">
-        <span class="eyebrow"><span class="idx mono">07</span> Get in touch</span>
+        <span class="eyebrow">Get in touch</span>
         <h2>Tell us what is going on.</h2>
         <p>Send through the vehicle, the fault and where you are. We will get back to you fast. For breakdowns, calling is quickest.</p>
         <div class="contact__cards">
@@ -628,13 +558,7 @@
   </div>
 </footer>
 
-<!-- fixed mono status rail (desktop) -->
-<div class="hud" id="hud">
-  <span class="hud__cell mono"><span class="hud__dot" aria-hidden="true"></span> 24/7 breakdown</span>
-  <span class="hud__cell mono">~60 km + regional NSW</span>
-  <a class="hud__cell hud__line mono" href="tel:0451073733">0451 073 733</a>
 </div>
-
 <!-- gallery lightbox -->
 <div class="lightbox" id="lightbox" aria-hidden="true">
   <button class="lightbox__close" aria-label="Close">&times;</button>
@@ -647,7 +571,7 @@
   Call now, day or night
 </a>
 
-<script defer src="vendor/lenis.min.js?v=27"></script>
-<script src="js/main.js?v=27" defer></script>
+<script defer src="vendor/lenis.min.js?v=28"></script>
+<script src="js/main.js?v=28" defer></script>
 </body>
 </html>

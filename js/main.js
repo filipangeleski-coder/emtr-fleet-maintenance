@@ -87,6 +87,7 @@
   /* ---- HERO: cartographic backdrop + drawn route + fault→cleared beat ---- */
   (function () {
     var hero = document.querySelector(".hero");
+    if (!hero || !hero.querySelector(".hero__route")) return; // de-vibe S1141: overlay removed
     if (!hero) return;
     var line = hero.querySelector(".route__line");
     var diag = document.getElementById("diagLine");
@@ -183,8 +184,10 @@
         doubleClickZoom: false, boxZoom: false, keyboard: false,
         zoomControl: false, attributionControl: true
       });
-      window.L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-        maxZoom: 19, attribution: "&copy; OpenStreetMap, &copy; CARTO"
+      // S1141: CARTO basemaps now stamp "API KEY REQUIRED" on keyless tiles. OSM raster needs no key;
+      // the dark look comes from a CSS filter on the tile pane (styles.css .coverage-map__leaflet).
+      window.L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19, attribution: "&copy; OpenStreetMap contributors"
       }).addTo(map);
       var ring = window.L.circle(center, { radius: 60000, color: "#3a8bff", weight: 1.5, opacity: 0.85, fillColor: "#2f7dff", fillOpacity: 0.12 }).addTo(map);
       window.L.circleMarker(center, { radius: 7, color: "#bcd6ff", weight: 2, fillColor: "#2f7dff", fillOpacity: 1 }).addTo(map);
